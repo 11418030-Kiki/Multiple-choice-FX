@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Design.UseTokenController">
+   <children>
+      <TextField layoutX="117.0" layoutY="164.0" prefHeight="25.0" prefWidth="366.0" promptText="Write your token here" />
+      <Button fx:id="useToken" layoutX="117.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleTokenAction" prefHeight="25.0" prefWidth="128.0" text="Use this token" />
+      <Button fx:id="backButton" layoutX="355.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="25.0" prefWidth="128.0" text="Back" />
+      <Label fx:id="MessageText" layoutX="286.0" layoutY="222.0" />
+      <Label layoutX="225.0" layoutY="60.0" text="Use a token for create an account" />
+   </children>
+</Pane>
