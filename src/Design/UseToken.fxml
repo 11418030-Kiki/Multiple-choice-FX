@@ -11,6 +11,6 @@
       <Button fx:id="useToken" layoutX="117.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleTokenAction" prefHeight="25.0" prefWidth="128.0" text="Use this token" />
       <Button fx:id="backButton" layoutX="355.0" layoutY="349.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="25.0" prefWidth="128.0" text="Back" />
       <Label fx:id="MessageText" layoutX="286.0" layoutY="222.0" />
-      <Label layoutX="225.0" layoutY="60.0" text="Use a token for create an account" />
+      <Label layoutX="225.0" layoutY="60.0" text="Use a token to create an account" />
    </children>
 </Pane>
