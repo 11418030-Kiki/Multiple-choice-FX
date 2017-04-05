@@ -19,6 +19,8 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         System.out.println("Starting the aplication...");
+        DBConnect connect = new DBConnect();
+        connect.getData();
         launch(args);
     }
 }

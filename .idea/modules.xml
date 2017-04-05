@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ProjectBarosFX.iml" filepath="$PROJECT_DIR$/ProjectBarosFX.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/projectbaros-fx.iml" filepath="$PROJECT_DIR$/src/projectbaros-fx.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/projectbarosfx.iml" filepath="$PROJECT_DIR$/src/projectbarosfx.iml" />
+      <module fileurl="file://C:\Users\andre\IdeaProjects\ProjectBarosFX\src\projectbarosfx.iml" filepath="C:\Users\andre\IdeaProjects\ProjectBarosFX\src\projectbarosfx.iml" />
     </modules>
   </component>
 </project>
