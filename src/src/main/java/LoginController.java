@@ -1,4 +1,6 @@
 
+import com.jfoenix.controls.JFXBadge;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +13,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginController {
-    @FXML private Button singIn;
-    @FXML private Button useToken;
+    @FXML private JFXButton singIn;
+    @FXML private JFXButton useToken;
     @FXML private TextField username;
 
     @FXML private void handleButtonAction(){
