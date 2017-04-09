@@ -13,7 +13,8 @@ public class Main extends Application {
         primaryStage.setTitle("Chestionare Auto categoria B");
         Scene scene = new Scene(root,600,400);
         primaryStage.setScene(scene);
-       // scene.getStylesheets().add("resources/Design.css");
+        primaryStage.setResizable(false);
+       //scene.getStylesheets().add("resources/Design.css");
         primaryStage.show();
     }
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
+   <children>
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: lightgrey;">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Profile Info" />
+              <MenuItem fx:id="exitButtonBar" mnemonicParsing="false" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Label fx:id="firstName" layoutX="558.0" layoutY="6.0" />
+      <Label fx:id="lastName" layoutX="558.0" layoutY="27.0" />
+      <ImageView fitHeight="36.0" fitWidth="43.0" layoutX="501.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXButton fx:id="incepeChestionar" layoutX="34.0" layoutY="127.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="167.0" style="-fx-background-color: lightgreen;" text="Incepe un chestionar" />
+      <JFXButton fx:id="logoutButton" layoutX="479.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" style="-fx-background-color: pink;" text="Logout" />
+      <JFXButton layoutX="34.0" layoutY="188.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="167.0" style="-fx-background-color: lightblue;" text="Mediu de invatare" />
+   </children>
+</Pane>

@@ -1,3 +1,7 @@
+/**
+ *  DBClass ofera toate metodele necesare conexiunii cu baza de date MySQL.
+ */
+
 import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 
@@ -70,7 +74,7 @@ public class DBConnect {
         return false;
     }
 
-    public void createAccount(String username,String password,String email){
+    public void createAccount(String username,String password,String email,String firstName,String lastName){
         try{
             Integer number = 0;
             String queryForCount = "SELECT COUNT(*) FROM ACCOUNTS;";
@@ -78,10 +82,41 @@ public class DBConnect {
             while(resultSet.next())
                 number=resultSet.getInt(1);
             ++number;
-            String query = "INSERT INTO ACCOUNTS VALUES"+"("+number+","+"'"+username+"'"+","+"'"+password+"'"+","+"'"+email+"')";
+            String query = "INSERT INTO ACCOUNTS VALUES"+"("+number+","+"'"+username+"'"+","+"'"+password+"'"+","+"'"+email+"'"+","+"'"+firstName+"'"+","+"'"+lastName+"'"+")";
             statemenet.executeUpdate(query);
         }catch(SQLException ex){
             System.out.println(ex);
         }
+    }
+
+    public boolean verifyAccount(String username,String password){
+        try{
+            String query = "SELECT * FROM ACCOUNTS WHERE USERNAME = '"+username+"'" + "AND PASSWORD = '"+password+"'";
+            resultSet = statemenet.executeQuery(query);
+            if(!resultSet.next()){
+                return false;
+            }
+            else
+            {
+                LoginController.idAccount_Current = resultSet.getInt(1);
+                return true;
+            }
+        }catch (Exception ex){ System.out.println(ex); }
+
+        return false;
+    }
+
+    public String getInfoFromColumn(String column,int value){
+        try{
+            String query = "SELECT "+column+" from ACCOUNTS WHERE idAccount = "+value;
+            resultSet = statemenet.executeQuery(query);
+            if(!resultSet.next())
+                return null;
+            else
+                return resultSet.getString(1);
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+        return null;
     }
 }

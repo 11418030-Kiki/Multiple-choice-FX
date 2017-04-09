@@ -22,5 +22,7 @@
       </Label>
       <JFXButton fx:id="backButton" layoutX="345.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleBackAction" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #EF5350;" text="Back" />
       <JFXTextField fx:id="emailText" layoutX="83.0" layoutY="242.0" promptText="email" />
+      <JFXTextField fx:id="lastNameText" layoutX="381.0" layoutY="200.0" promptText="Lastname" />
+      <JFXTextField fx:id="firstNameText" layoutX="381.0" layoutY="159.0" promptText="Firstname" />
    </children>
 </Pane>

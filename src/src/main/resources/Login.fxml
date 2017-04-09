@@ -10,13 +10,19 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
    <children>
       <TextField fx:id="username" layoutX="193.0" layoutY="162.0" prefHeight="25.0" prefWidth="229.0" promptText="Username" />
-      <PasswordField layoutX="193.0" layoutY="210.0" prefHeight="25.0" prefWidth="229.0" promptText="Password" />
-      <Label layoutX="132.0" layoutY="40.0" text="Chestionare auto categoria B">
+      <PasswordField fx:id="password" layoutX="193.0" layoutY="210.0" prefHeight="25.0" prefWidth="229.0" promptText="Password" />
+      <Label layoutX="140.0" layoutY="39.0" text="Chestionare auto categoria B">
          <font>
             <Font name="French Script MT" size="40.0" />
          </font>
       </Label>
-      <JFXButton fx:id="singIn" layoutX="36.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="247.0" style="-fx-background-color: green;" text="Sing in" />
-      <JFXButton fx:id="useToken" layoutX="342.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleUseToken" prefHeight="25.0" prefWidth="229.0" style="-fx-background-color: grey;" text="Use a token" />
+      <JFXButton fx:id="singIn" layoutX="36.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: green;" text="Sing in" />
+      <JFXButton fx:id="useToken" layoutX="237.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="141.0" style="-fx-background-color: grey;" text="Use a token" />
+      <Label fx:id="textLabel" layoutX="191.0" layoutY="271.0" prefHeight="21.0" prefWidth="235.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="exitButton" layoutX="400.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="171.0" style="-fx-background-color: pink;" text="Exit" />
    </children>
 </Pane>

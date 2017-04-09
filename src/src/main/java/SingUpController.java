@@ -14,15 +14,15 @@ import java.io.IOException;
 
 public class SingUpController {
 
-    @FXML
-    private JFXButton backButton;
-    @FXML
-    private JFXButton singUpButton;
+    @FXML private JFXButton backButton;
+    @FXML private JFXButton singUpButton;
     @FXML private JFXTextField usernameText;
     @FXML private JFXTextField emailText;
     @FXML private JFXPasswordField passwordText;
     @FXML private JFXPasswordField passwordRepeatText;
     @FXML private JFXRadioButton termsButton;
+    @FXML private JFXTextField firstNameText;
+    @FXML private JFXTextField lastNameText;
 
     @FXML
     private void handleBackAction(ActionEvent event) throws IOException {
@@ -40,13 +40,14 @@ public class SingUpController {
             DBConnect connect = new DBConnect();
             if (connect.verifyUsernameAndPassword(usernameText.getText(),emailText.getText()) == true)
             {
-                if(passwordText.getText().equals("")==false && passwordText.getText().equals(passwordRepeatText.getText())){
+                if(passwordText.getText().equals("")==false && passwordText.getText().equals(passwordRepeatText.getText()) && firstNameText.getText().equals("")==false
+                        && lastNameText.getText().equals("")==false){
                     //Parolele introduse exista si sunt identice in ambele TextField
                     //Deci avem toate campurile , mai trebuie sa acceptam termenii si conditiile
                     if(termsButton.isSelected())
                     {
                         //Avem tot ce ne trebuie , putem sa creeam contul nou si sa stergem tokenul folosit pentru creeare.
-                        connect.createAccount(usernameText.getText(),passwordText.getText(),emailText.getText());
+                        connect.createAccount(usernameText.getText(),passwordText.getText(),emailText.getText(),firstNameText.getText(),lastNameText.getText());
                         connect.removeToken(UseTokenController.validToken);
                         System.out.println("Your account has been created.");
                     }
@@ -54,9 +55,8 @@ public class SingUpController {
                         System.out.println("Termenii nu sunt acceptati");
                     }
                 }
-                else
-                {
-                    System.out.println("Parola nu exista sau nu corespunde");
+                else {
+                    System.out.println("Parola nu exista sau nu corespunde sau nu ai introdus firstName si lastName");
                 }
             }
             else{
