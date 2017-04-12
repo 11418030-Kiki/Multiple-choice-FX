@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F5F5F5;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SingUpController">
    <children>
-      <JFXButton fx:id="singUpButton" layoutX="83.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleSingUpButton" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: #4CAF50;" text="Sing Up" />
+      <JFXButton fx:id="signUpButton" layoutX="83.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleSingUpButton" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: #4CAF50;" text="Sign Up" />
       <JFXPasswordField fx:id="passwordText" layoutX="83.0" layoutY="159.0" prefHeight="25.0" prefWidth="186.0" promptText="password" />
       <JFXTextField fx:id="usernameText" layoutX="83.0" layoutY="105.0" promptText="username" />
       <JFXRadioButton fx:id="termsButton" layoutX="83.0" layoutY="288.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="262.0" text="I agree with all term and conditions" />

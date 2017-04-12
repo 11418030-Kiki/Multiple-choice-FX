@@ -1,8 +1,10 @@
 /**
  *  DBClass ofera toate metodele necesare conexiunii cu baza de date MySQL.
+ *  Pentru a le accesa e nevoie de a crea cate un obiect DBConnect pe unde ai nevoie si asta nu e ok
+ *  Probabil metodele astea or sa fie statice si eventual mutate in alta clasa, asta cu DBConnect are nume
+ *  cam nefericit.
  */
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 
 
@@ -67,7 +69,6 @@ public class DBConnect {
             }
             else
                 return false;
-
         }catch(Exception ex){
             System.out.println(ex);
         }
@@ -115,6 +116,35 @@ public class DBConnect {
             else
                 return resultSet.getString(1);
         }catch(Exception ex){
+            System.out.println(ex);
+        }
+        return null;
+    }
+
+    public boolean verifyAnswer(int idQuiz,String answer){
+        try{
+            String query = "SELECT * FROM questions WHERE idQuestion = "+idQuiz+" and raspunsCorect = '" +answer+ "'";
+            resultSet = statemenet.executeQuery(query);
+            if(!resultSet.next())
+                return false;
+            else{
+                return true;
+            }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+        return false;
+    }
+
+    public String getInfoFromQuestions(String column,Integer idQuiz){
+        try{
+            String query = "SELECT "+column+" from QUESTIONS WHERE idQUESTION = "+idQuiz.toString();
+            resultSet = statemenet.executeQuery(query);
+            if(!resultSet.next())
+                return null;
+            else
+                return resultSet.getString(1);
+        }catch (Exception ex){
             System.out.println(ex);
         }
         return null;

@@ -15,7 +15,7 @@ import java.io.IOException;
 public class SingUpController {
 
     @FXML private JFXButton backButton;
-    @FXML private JFXButton singUpButton;
+    @FXML private JFXButton signUpButton;
     @FXML private JFXTextField usernameText;
     @FXML private JFXTextField emailText;
     @FXML private JFXPasswordField passwordText;
@@ -24,8 +24,7 @@ public class SingUpController {
     @FXML private JFXTextField firstNameText;
     @FXML private JFXTextField lastNameText;
 
-    @FXML
-    private void handleBackAction(ActionEvent event) throws IOException {
+    @FXML public void handleBackAction(ActionEvent event) throws IOException {
         if(event.getSource()==backButton){
             Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
             Scene scene = new Scene(root,600,400);
@@ -34,18 +33,15 @@ public class SingUpController {
             stage.setScene(scene);
         }
     }
-    @FXML
-    private void handleSingUpButton(ActionEvent event) throws IOException{
-        if(event.getSource()==singUpButton){
+    @FXML private void handleSingUpButton(ActionEvent event) throws IOException{
+        if(event.getSource()==signUpButton){
             DBConnect connect = new DBConnect();
-            if (connect.verifyUsernameAndPassword(usernameText.getText(),emailText.getText()) == true)
+            if (connect.verifyUsernameAndPassword(usernameText.getText(), emailText.getText()))
             {
-                if(passwordText.getText().equals("")==false && passwordText.getText().equals(passwordRepeatText.getText()) && firstNameText.getText().equals("")==false
-                        && lastNameText.getText().equals("")==false){
+                if(!passwordText.getText().equals("") && passwordText.getText().equals(passwordRepeatText.getText()) && !firstNameText.getText().equals("") && !lastNameText.getText().equals("")){
                     //Parolele introduse exista si sunt identice in ambele TextField
                     //Deci avem toate campurile , mai trebuie sa acceptam termenii si conditiile
-                    if(termsButton.isSelected())
-                    {
+                    if(termsButton.isSelected()) {
                         //Avem tot ce ne trebuie , putem sa creeam contul nou si sa stergem tokenul folosit pentru creeare.
                         connect.createAccount(usernameText.getText(),passwordText.getText(),emailText.getText(),firstNameText.getText(),lastNameText.getText());
                         connect.removeToken(UseTokenController.validToken);

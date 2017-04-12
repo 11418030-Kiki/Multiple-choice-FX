@@ -20,7 +20,7 @@ import java.io.IOException;
 import static java.lang.System.exit;
 
 public class LoginController {
-    @FXML private JFXButton singIn;
+    @FXML private JFXButton signIn;
     @FXML private JFXButton useToken;
     @FXML private TextField username;
     @FXML private PasswordField password;
@@ -44,10 +44,10 @@ public class LoginController {
             exit(0);
         }
 
-        if(event.getSource()==singIn) {
+        if(event.getSource()==signIn) {
             DBConnect connect = new DBConnect();
             if (connect.verifyAccount(username.getText(), password.getText()) == true){
-                Stage stage = (Stage)singIn.getScene().getWindow();
+                Stage stage = (Stage)signIn.getScene().getWindow();
                 stage.setTitle("Chestionare Auto categoria B");
                 HomeController home = new HomeController();
                 home.start(stage);

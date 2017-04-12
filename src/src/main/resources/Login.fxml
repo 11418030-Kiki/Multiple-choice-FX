@@ -16,7 +16,7 @@
             <Font name="French Script MT" size="40.0" />
          </font>
       </Label>
-      <JFXButton fx:id="singIn" layoutX="36.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: green;" text="Sing in" />
+      <JFXButton fx:id="signIn" layoutX="36.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: green;" text="Sign In" />
       <JFXButton fx:id="useToken" layoutX="237.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="141.0" style="-fx-background-color: grey;" text="Use a token" />
       <Label fx:id="textLabel" layoutX="191.0" layoutY="271.0" prefHeight="21.0" prefWidth="235.0">
          <font>
