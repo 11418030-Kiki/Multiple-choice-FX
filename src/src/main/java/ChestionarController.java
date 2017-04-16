@@ -2,8 +2,12 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -77,6 +81,8 @@ public class ChestionarController {
         answerB.setSelected(false);
         answerC.setSelected(false);
         imagineQuiz.setImage(null);
+        corecteText.setText("Intrebari corecte: "+correctAnswers);
+        gresiteText.setText("Intrebari gresite: "+wrongAnswers);
         quizText.setText(connect.getInfoFromQuestions("intrebareText",idQuiz));
         answerA.setText(connect.getInfoFromQuestions("varianta1Text",idQuiz));
         answerB.setText(connect.getInfoFromQuestions("varianta2Text",idQuiz));
@@ -100,13 +106,26 @@ public class ChestionarController {
                 gresiteText.setText("Intrebari gresite: "+wrongAnswers);
             }
             answer = "";
+            if(wrongAnswers > 4 || correctAnswers + wrongAnswers == 26){
+                //Aici ori pici ori treci
+                if(wrongAnswers > 4)
+                    CongratulationsController.resultText = "RESPINS";
+                else
+                    CongratulationsController.resultText = "ADMIS";
+
+                Parent result = FXMLLoader.load(getClass().getResource("/Congratulations.fxml"));
+                Scene scene = new Scene(result,600,400);
+                Stage stage=(Stage) sendAnswer.getScene().getWindow();
+                stage.setTitle("Chestionare Auto categoria B");
+                stage.setScene(scene);
+                stage.show();
+
+            }
             if(correctAnswers+wrongAnswers<26){
                 //Daca nu s-au pus 26 de intrebari mai punem una
                 initialize();
             }
-            else if(correctAnswers+wrongAnswers==26){
 
-            }
         }
     }
 }
