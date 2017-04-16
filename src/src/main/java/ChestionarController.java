@@ -38,6 +38,7 @@ public class ChestionarController {
     public static Integer idQuiz ;
 
     private final ArrayList<Integer> list = new ArrayList<Integer>();
+    private ArrayList<String> questionArray = new ArrayList<String>();
 
 
     private void checkAnswer() { //O mica functie care verifica ce buton ai apasat
@@ -83,10 +84,19 @@ public class ChestionarController {
         imagineQuiz.setImage(null);
         corecteText.setText("Intrebari corecte: "+correctAnswers);
         gresiteText.setText("Intrebari gresite: "+wrongAnswers);
+
+        //Adaugam variantele de raspuns in arraylist-ul questionArray
+        questionArray.add(connect.getInfoFromQuestions("varianta1Text",idQuiz));
+        questionArray.add(connect.getInfoFromQuestions("varianta2Text",idQuiz));
+        questionArray.add(connect.getInfoFromQuestions("varianta3Text",idQuiz));
+        /*Le amestecam , in felul asta o sa avem variantele de raspuns in alta ordine, sa nu invatam mecanic
+             Vezi examen CCNA.. :)) */
+        Collections.shuffle(questionArray);
+
         quizText.setText(connect.getInfoFromQuestions("intrebareText",idQuiz));
-        answerA.setText(connect.getInfoFromQuestions("varianta1Text",idQuiz));
-        answerB.setText(connect.getInfoFromQuestions("varianta2Text",idQuiz));
-        answerC.setText(connect.getInfoFromQuestions("varianta3Text",idQuiz));
+        answerA.setText(questionArray.get(0));
+        answerB.setText(questionArray.get(1));
+        answerC.setText(questionArray.get(2));
         try{
             connect.getImageFromSQL(idQuiz,imagineQuiz);
         }catch (Exception ex){ System.out.println("Nu exista imagine."); }
