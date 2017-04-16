@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -21,5 +22,8 @@
       <JFXRadioButton fx:id="answerC" layoutX="60.0" layoutY="355.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="936.0" text="Varianta 3" />
       <JFXButton layoutX="698.0" layoutY="618.0" mnemonicParsing="false" prefHeight="112.0" prefWidth="304.0" style="-fx-background-color: yellow;" text="Sari peste" />
       <Label fx:id="timeLabel" layoutX="831.0" layoutY="14.0" prefHeight="17.0" prefWidth="125.0" text="Timp ramas : " />
+      <ImageView fx:id="imagineQuiz" fitHeight="231.0" fitWidth="256.0" layoutX="745.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="corecteText" layoutX="380.0" layoutY="23.0" text="Intrebari corecte: " />
+      <Label fx:id="gresiteText" layoutX="514.0" layoutY="23.0" text="Intrebari gresite:" />
    </children>
 </Pane>

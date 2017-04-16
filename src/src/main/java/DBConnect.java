@@ -5,6 +5,13 @@
  *  cam nefericit.
  */
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
+import javax.imageio.ImageIO;
+import javafx.scene.image.PixelReader;
+import java.io.ByteArrayInputStream;
 import java.sql.*;
 
 
@@ -148,5 +155,38 @@ public class DBConnect {
             System.out.println(ex);
         }
         return null;
+    }
+
+    public Integer getCountFromSQL(String tableName){
+        try{
+            String query = "SELECT COUNT(*) FROM "+ tableName;
+            resultSet = statemenet.executeQuery(query);
+            if(!resultSet.next())
+                return -1;
+            else
+            {
+                Integer x = Integer.parseInt(resultSet.getString(1));
+                return x;
+            }
+        }catch (Exception ex){
+            System.out.println(ex);
+        }
+        return -1;
+    }
+
+    public void getImageFromSQL(int idQuiz,ImageView imageView){
+        try{
+            byte[] fileBytes;
+            String query = "SELECT imagine FROM QUESTIONS WHERE idQuestion = " + idQuiz;
+            resultSet = statemenet.executeQuery(query);
+            if(resultSet.next()){
+                fileBytes = resultSet.getBytes(1);
+                Image image = new Image(new ByteArrayInputStream(fileBytes));
+                imageView.setImage(image);
+            }
+            else{
+                return;
+            }
+        }catch (Exception ex){ System.out.println(ex); }
     }
 }
