@@ -16,7 +16,7 @@
       </Label>
       <Label fx:id="quizText" layoutX="63.0" layoutY="106.0" prefHeight="38.0" prefWidth="929.0" text="Aici vine intrebarea" />
       <JFXButton fx:id="sendAnswer" layoutX="60.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="112.0" prefWidth="276.0" style="-fx-background-color: lightgreen;" text="Trimite" />
-      <JFXButton layoutX="356.0" layoutY="618.0" mnemonicParsing="false" prefHeight="112.0" prefWidth="317.0" style="-fx-background-color: pink;" text="Sterge Raspunsuri" />
+      <JFXButton fx:id="exitButton" layoutX="356.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="112.0" prefWidth="317.0" style="-fx-background-color: pink;" text="Renunta " />
       <JFXRadioButton fx:id="answerA" layoutX="57.0" layoutY="255.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="936.0" text="Varianta 1" />
       <JFXRadioButton fx:id="answerB" layoutX="57.0" layoutY="305.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="936.0" text="Varianta 2" />
       <JFXRadioButton fx:id="answerC" layoutX="60.0" layoutY="355.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="936.0" text="Varianta 3" />

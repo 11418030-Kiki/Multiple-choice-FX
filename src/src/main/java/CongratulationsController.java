@@ -24,12 +24,10 @@ public class CongratulationsController {
     @FXML private void handleButtonAction(ActionEvent event) throws IOException{
         if(event.getSource() == tryAgainButton){
 
-            Parent incepeIar = FXMLLoader.load(getClass().getResource("/Chestionar.fxml"));
-            Scene scene = new Scene(incepeIar,1024,768);
             Stage stage = (Stage)tryAgainButton.getScene().getWindow();
             stage.setTitle("Chestionare Auto categoria B");
-            stage.setScene(scene);
-            stage.show();
+            ChestionarController home = new ChestionarController();
+            home.start(stage);
 
         }
         if(event.getSource() == goHomeButton){

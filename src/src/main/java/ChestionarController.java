@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -12,6 +15,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
+
+import static java.lang.System.exit;
 
 
 public class ChestionarController {
@@ -40,6 +46,12 @@ public class ChestionarController {
     private final ArrayList<Integer> list = new ArrayList<Integer>();
     private ArrayList<String> questionArray = new ArrayList<String>();
 
+    public void start(Stage stage)throws IOException{
+        Parent home = FXMLLoader.load(getClass().getResource("/Chestionar.fxml"));
+        Scene homeScene = new Scene(home, 1024, 768);
+        stage.setScene(homeScene);
+        stage.show();
+    }
 
     private void checkAnswer() { //O mica functie care verifica ce buton ai apasat
         if (answerA.isSelected()) {
@@ -136,6 +148,28 @@ public class ChestionarController {
                 initialize();
             }
 
+        }
+        if(event.getSource() == exitButton){
+            //Ceva cu are you shure ar fi frumy
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirma");
+            alert.setHeaderText("Chestionare Auto categoria B");
+            alert.setContentText("Esti sigur ca vrei sa iesi din test?");
+            //This is fucking lambda expression
+
+            alert.showAndWait().ifPresent(response -> {
+                if(response == ButtonType.OK){
+                    try {
+                        Stage stage = (Stage) exitButton.getScene().getWindow();
+                        stage.setTitle("Chestionare Auto categoria B");
+                        HomeController home = new HomeController();
+                        home.start(stage);
+                    }catch (IOException ex){ System.out.println(ex); }
+                }
+                else{
+                    alert.close();
+                }
+            });
         }
     }
 }

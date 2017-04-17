@@ -21,7 +21,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="projectbaros-fx" target="1.5" />
+      <module name="projectbaros-fx" target="1.8" />
       <module name="projectbarosfx" target="1.5" />
     </bytecodeTargetLevel>
   </component>

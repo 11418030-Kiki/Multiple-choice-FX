@@ -37,12 +37,10 @@ public class HomeController { // implements Initializable {
 
     @FXML private void handleButtonAction(ActionEvent event) throws IOException{
         if(event.getSource() == incepeChestionar){
-            Parent chestionar = FXMLLoader.load(getClass().getResource("/Chestionar.fxml"));
-            Scene scene = new Scene(chestionar,1024,768);
-            Stage stage=(Stage) incepeChestionar.getScene().getWindow();
+            Stage stage = (Stage)incepeChestionar.getScene().getWindow();
             stage.setTitle("Chestionare Auto categoria B");
-            stage.setScene(scene);
-            stage.show();
+            ChestionarController home = new ChestionarController();
+            home.start(stage);
         }
         else if(event.getSource() == logoutButton){
             Parent login = FXMLLoader.load(getClass().getResource("/Login.fxml"));
