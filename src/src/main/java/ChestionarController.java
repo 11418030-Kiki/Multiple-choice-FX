@@ -1,5 +1,6 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,12 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 
 import static java.lang.System.exit;
 
@@ -23,8 +23,10 @@ import static java.lang.System.exit;
 public class ChestionarController {
 
     @FXML private Label timeLabel;
+    @FXML private Text timpText;
     @FXML private JFXButton sendAnswer;
     @FXML private JFXButton exitButton;
+    @FXML private JFXButton jumpButton;
 
     @FXML private Label quizText;
     @FXML private Label gresiteText;
@@ -36,15 +38,44 @@ public class ChestionarController {
 
     @FXML private ImageView imagineQuiz;
 
+    private boolean isStarted = false;
+
     private String answer  = "";
     private Integer correctAnswers = 0;
     private Integer wrongAnswers = 0;
     private int i = -1;
+    private int j = -1;
+
+    Timer timer = new Timer() ;
+
+    private int countDown  = 1800;
+
+    public void startCountDown(){
+        //Pentru cronometru
+        timer.schedule(new TimerTask(){
+            @Override
+            public void run(){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        countDown--;
+                        timpText.setText("Timp ramas: " + countDown / 60 + ": "+countDown % 60);
+
+                        if(countDown < 0) {
+                            timer.cancel();
+                        }
+                    }
+                });
+            }
+        },1000,1000);
+    }
 
     public static Integer idQuiz ;
 
     private final ArrayList<Integer> list = new ArrayList<Integer>();
     private ArrayList<String> questionArray = new ArrayList<String>();
+    private ArrayList<Integer> sariArray = new ArrayList<Integer>();
 
     public void start(Stage stage)throws IOException{
         Parent home = FXMLLoader.load(getClass().getResource("/Chestionar.fxml"));
@@ -75,18 +106,26 @@ public class ChestionarController {
             for (int i = 1; i <= connect.getCountFromSQL("questions"); i++) {
                 list.add(new Integer(i));
             }
-
             Collections.shuffle(list);
         }
-        if(i <= 25) {
+        if(i < 25 ) {
             idQuiz = list.get(++i);
         }
     }
 
     @FXML private void initialize() throws InterruptedException {
+
+        startCountDown();
+
+
         //Aici trebuie sa initializam o intrebare , apoi cand dai click pe buton;
         DBConnect connect = new DBConnect();
         generateQuestions();
+        if(!isStarted)
+            isStarted = true;
+        else{
+            //timeLabel.setText();
+        }
        /* Aici deselectam radio butoanele si stegem imaignea care a fost inainte in imageView. In cazul in care
                 vine o intrebare fara o imagine si inainte a fost una cu imagine , imaginea trebuie sa dispara
                 in plus radiobutoanele nu trebuie sa ramana selectate.*/
@@ -98,20 +137,21 @@ public class ChestionarController {
         gresiteText.setText("Intrebari gresite: "+wrongAnswers);
 
         //Adaugam variantele de raspuns in arraylist-ul questionArray
-        questionArray.add(connect.getInfoFromQuestions("varianta1Text",idQuiz));
-        questionArray.add(connect.getInfoFromQuestions("varianta2Text",idQuiz));
-        questionArray.add(connect.getInfoFromQuestions("varianta3Text",idQuiz));
+        answerA.setText(connect.getInfoFromQuestions("varianta1Text",idQuiz));
+        answerB.setText(connect.getInfoFromQuestions("varianta2Text",idQuiz));
+        answerC.setText(connect.getInfoFromQuestions("varianta3Text",idQuiz));
         /*Le amestecam , in felul asta o sa avem variantele de raspuns in alta ordine, sa nu invatam mecanic
              Vezi examen CCNA.. :)) */
-        Collections.shuffle(questionArray);
+        //Collections.shuffle(questionArray);
 
         quizText.setText(connect.getInfoFromQuestions("intrebareText",idQuiz));
-        answerA.setText(questionArray.get(0));
+    /*  answerA.setText(questionArray.get(0));
         answerB.setText(questionArray.get(1));
         answerC.setText(questionArray.get(2));
+        questionArray.removeAll(questionArray);*/
         try{
             connect.getImageFromSQL(idQuiz,imagineQuiz);
-        }catch (Exception ex){ System.out.println("Nu exista imagine."); }
+        }catch (Exception ex) { System.out.println(ex); }
 
 
     }
@@ -122,6 +162,16 @@ public class ChestionarController {
             DBConnect connect = new DBConnect();
             if (connect.verifyAnswer(idQuiz, answer)==true) {  //Verificam daca ce am introdus este corect;
                 correctAnswers++;
+
+                /*if(sariArray.contains(idQuiz)==true){//Daca raspunsu corect vine din sariArray il stergem de acolo
+                    for(int i = 0 ;i < sariArray.size() ; i ++){
+                        if(sariArray.get(i) == idQuiz){
+                            sariArray.remove(i);
+                            break;
+                        }
+                    }
+                }*/
+
                 corecteText.setText("Intrebari corecte: "+correctAnswers);
             } else {
                 wrongAnswers++;
@@ -143,10 +193,11 @@ public class ChestionarController {
                 stage.show();
 
             }
-            if(correctAnswers+wrongAnswers<26){
+            if(correctAnswers+wrongAnswers+sariArray.size()<26){
                 //Daca nu s-au pus 26 de intrebari mai punem una
                 initialize();
             }
+
 
         }
         if(event.getSource() == exitButton){
@@ -164,12 +215,18 @@ public class ChestionarController {
                         stage.setTitle("Chestionare Auto categoria B");
                         HomeController home = new HomeController();
                         home.start(stage);
-                    }catch (IOException ex){ System.out.println(ex); }
+                    }catch (IOException ex){ ex.printStackTrace(); }
                 }
                 else{
                     alert.close();
                 }
             });
         }
+
+        /*if(event.getSource() == jumpButton){    //Butonul sari peste
+            if(sariArray.contains(i)==false)
+                sariArray.add(i);
+            initialize();
+        }*/
     }
 }
