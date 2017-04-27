@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -39,6 +38,7 @@ public class ChestionarController {
     @FXML private ImageView imagineQuiz;
 
     private boolean isStarted = false;
+    private boolean questionsAreOver = false;
 
     private String answer  = "";
     private Integer correctAnswers = 0;
@@ -64,6 +64,8 @@ public class ChestionarController {
 
                         if(countDown < 0) {
                             timer.cancel();
+                            exit(0);
+
                         }
                     }
                 });
@@ -74,8 +76,8 @@ public class ChestionarController {
     public static Integer idQuiz ;
 
     private final ArrayList<Integer> list = new ArrayList<Integer>();
-    private ArrayList<String> questionArray = new ArrayList<String>();
-    private ArrayList<Integer> sariArray = new ArrayList<Integer>();
+    //private ArrayList<String> questionArray = new ArrayList<String>(); Nu il mai folosim acum era ceva pentru schimbat ordine raspuns
+    private Queue<Integer> sariQueue = new LinkedList<Integer>();
 
     public void start(Stage stage)throws IOException{
         Parent home = FXMLLoader.load(getClass().getResource("/Chestionar.fxml"));
@@ -111,21 +113,28 @@ public class ChestionarController {
         if(i < 25 ) {
             idQuiz = list.get(++i);
         }
+        if(i == 25 && !sariQueue.isEmpty() && questionsAreOver){
+            //Daca i a ajuns la 25 , o sa modificam pe idQuiz din sariQueue
+            idQuiz = sariQueue.element();
+        }
     }
 
     @FXML private void initialize() throws InterruptedException {
 
-        startCountDown();
 
 
         //Aici trebuie sa initializam o intrebare , apoi cand dai click pe buton;
         DBConnect connect = new DBConnect();
         generateQuestions();
-        if(!isStarted)
+        if(!isStarted) {
             isStarted = true;
-        else{
-            //timeLabel.setText();
+            startCountDown();
         }
+        else{
+
+        }
+
+
        /* Aici deselectam radio butoanele si stegem imaignea care a fost inainte in imageView. In cazul in care
                 vine o intrebare fara o imagine si inainte a fost una cu imagine , imaginea trebuie sa dispara
                 in plus radiobutoanele nu trebuie sa ramana selectate.*/
@@ -162,19 +171,16 @@ public class ChestionarController {
             DBConnect connect = new DBConnect();
             if (connect.verifyAnswer(idQuiz, answer)==true) {  //Verificam daca ce am introdus este corect;
                 correctAnswers++;
-
-                /*if(sariArray.contains(idQuiz)==true){//Daca raspunsu corect vine din sariArray il stergem de acolo
-                    for(int i = 0 ;i < sariArray.size() ; i ++){
-                        if(sariArray.get(i) == idQuiz){
-                            sariArray.remove(i);
-                            break;
-                        }
-                    }
-                }*/
-
+                if(questionsAreOver){
+                    sariQueue.remove();
+                }
                 corecteText.setText("Intrebari corecte: "+correctAnswers);
             } else {
                 wrongAnswers++;
+                if(questionsAreOver){
+                    sariQueue.remove();
+                    sariQueue.add(idQuiz);
+                }
                 gresiteText.setText("Intrebari gresite: "+wrongAnswers);
             }
             answer = "";
@@ -193,8 +199,12 @@ public class ChestionarController {
                 stage.show();
 
             }
-            if(correctAnswers+wrongAnswers+sariArray.size()<26){
+            if(correctAnswers+wrongAnswers < 26 ){
                 //Daca nu s-au pus 26 de intrebari mai punem una
+                initialize();
+            }
+            if(wrongAnswers+correctAnswers+sariQueue.size() == 26 && !questionsAreOver){
+                questionsAreOver = true;
                 initialize();
             }
 
@@ -223,10 +233,24 @@ public class ChestionarController {
             });
         }
 
-        /*if(event.getSource() == jumpButton){    //Butonul sari peste
-            if(sariArray.contains(i)==false)
-                sariArray.add(i);
-            initialize();
-        }*/
+        if(event.getSource() == jumpButton){    //Butonul sari peste
+            if(sariQueue.contains(idQuiz)){
+                sariQueue.remove(idQuiz);
+                sariQueue.add(idQuiz);
+                //Daca contine intrebarea , o stergem din coada iar apoi o punem iar, gen o punem la rand iar
+                initialize();
+            }
+            else {
+                //Daca nu exista in coada o adaugam
+                sariQueue.add(idQuiz);
+                initialize();
+            }
+            if(wrongAnswers+correctAnswers+sariQueue.size() == 26 && !questionsAreOver){
+                //Daca in momentul in care am dat click pe sari este la ultima intrebare, si suma aceasta da 26
+                questionsAreOver = true;
+                //Setam acest bool care marcheaza ca s-au terminat intrebarile din chestionar, iar acum actualizarea lui idQuiz va avea loc din coada
+                //Pana cand wrongAnswer + correctAnswer = 26 sau wrongAnswer > 4
+            }
+        }
     }
 }
