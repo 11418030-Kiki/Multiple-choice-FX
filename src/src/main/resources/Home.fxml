@@ -8,7 +8,7 @@
    <children>
       <JFXButton fx:id="incepeChestionar" layoutX="34.0" layoutY="127.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="167.0" style="-fx-background-color: lightgreen;" text="Incepe un chestionar" />
       <JFXButton fx:id="logoutButton" layoutX="479.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="108.0" style="-fx-background-color: pink;" text="Logout" />
-      <JFXButton layoutX="34.0" layoutY="188.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="167.0" style="-fx-background-color: lightblue;" text="Mediu de invatare" />
+      <JFXButton fx:id="mediuInvatareButton" layoutX="34.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="167.0" style="-fx-background-color: lightblue;" text="Mediu de invatare" />
       <Label fx:id="firstName" layoutX="558.0" layoutY="6.0" text="Label" />
       <Label fx:id="lastName" layoutX="558.0" layoutY="27.0" text="Label" />
    </children>

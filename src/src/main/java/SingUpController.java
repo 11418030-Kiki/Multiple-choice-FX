@@ -11,6 +11,11 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class SingUpController {
 
@@ -24,6 +29,27 @@ public class SingUpController {
     @FXML private JFXTextField firstNameText;
     @FXML private JFXTextField lastNameText;
 
+    private ArrayList<Integer> questionsList = new ArrayList<Integer>();
+    private Queue<Integer> questionsQueue = new LinkedList<>();
+
+    private void generateQueueForLearningMode(){
+        DBConnect connect = new DBConnect();
+
+        //Adaugam in colectia questionsList elemtentele de la 1 la nuarul de intrebari
+        for(int i = 1 ; i <= connect.getCountFromSQL("questions"); ++i){
+            questionsList.add(i);
+        }
+
+        //Amestecam numerele pentru a genera o coada cu id-uri random
+        Collections.shuffle(questionsList);
+
+        //Copiem id-urile din colectia questionsList in coada
+        for(int i = 0 ; i < questionsList.size() ; ++i){
+            questionsQueue.add(questionsList.get(i));
+        }
+
+    }
+
     @FXML public void handleBackAction(ActionEvent event) throws IOException {
         if(event.getSource()==backButton){
             Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
@@ -33,6 +59,7 @@ public class SingUpController {
             stage.setScene(scene);
         }
     }
+
     @FXML private void handleSingUpButton(ActionEvent event) throws IOException{
         if(event.getSource()==signUpButton){
             DBConnect connect = new DBConnect();

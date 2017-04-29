@@ -18,6 +18,7 @@ public class HomeController { // implements Initializable {
     @FXML private MenuItem exitButtonBar;
     @FXML private JFXButton logoutButton;
     @FXML private JFXButton incepeChestionar;
+    @FXML private JFXButton mediuInvatareButton;
     @FXML private Label firstName;
     @FXML private Label lastName;
 
@@ -49,6 +50,12 @@ public class HomeController { // implements Initializable {
             stage.setTitle("Chestionare auto categoria B");
             stage.setScene(scene);
             stage.show();
+        }
+        else if(event.getSource() == mediuInvatareButton){
+            Stage stage = (Stage)mediuInvatareButton.getScene().getWindow();
+            stage.setTitle("Chestionare Auto categoria B");
+            MediuInvatareController mediu = new MediuInvatareController();
+            mediu.start(stage);
         }
     }
 }
