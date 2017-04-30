@@ -1,5 +1,6 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXProgressBar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +22,7 @@ public class MediuInvatareController{
     @FXML private JFXButton sendAnswerButton;
     @FXML private JFXButton exitButton;
     @FXML private JFXButton jumpAnswerButton;
-    @FXML private ProgressBar progressBar;
+    @FXML private JFXProgressBar progressBar;
     @FXML private Label questionLabel;
     @FXML private JFXCheckBox answerA;
     @FXML private JFXCheckBox answerB;
