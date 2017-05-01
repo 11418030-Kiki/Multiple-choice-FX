@@ -5,6 +5,7 @@
  *  cam nefericit.
  */
 
+import com.mysql.cj.jdbc.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -13,12 +14,27 @@ import javax.imageio.ImageIO;
 import javafx.scene.image.PixelReader;
 import java.io.ByteArrayInputStream;
 import java.sql.*;
+import java.sql.PreparedStatement;
 
 
 public class DBConnect {
     private Connection connection;
     private Statement statemenet;
     private ResultSet resultSet;
+
+    //static final String WRITE_OBJECT_SQL = "INSERT INTO accounts(object_value) VALUES (?) WHERE idACCOUNT = ? ";
+    static final String WRITE_OBJECT_SQL = "UPDATE accounts SET object_value = ? WHERE idACCOUNT = ?";
+    static final String READ_OBJECT_SQL = "SELECT object_value FROM accounts WHERE id = ?";
+
+    public static Connection getConnection() throws Exception {
+        String driver = "com.mysql.cj.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:3306/chestionareauto?serverTimezone=UTC&autoReconnect=true&useSSL=false";
+        String username = "root";
+        String password = "andrei123";
+        Class.forName(driver);
+        Connection conn = DriverManager.getConnection(url, username, password);
+        return conn;
+    }
 
     public DBConnect(){
         try{
@@ -90,7 +106,7 @@ public class DBConnect {
             while(resultSet.next())
                 number=resultSet.getInt(1);
             ++number;
-            String query = "INSERT INTO ACCOUNTS VALUES"+"("+number+","+"'"+username+"'"+","+"'"+password+"'"+","+"'"+email+"'"+","+"'"+firstName+"'"+","+"'"+lastName+"'"+")";
+            String query = "INSERT INTO ACCOUNTS (idACCOUNT,username,password,email,firstname,lastname) VALUES"+"("+number+","+"'"+username+"'"+","+"'"+password+"'"+","+"'"+email+"'"+","+"'"+firstName+"'"+","+"'"+lastName+"'"+")";
             statemenet.executeUpdate(query);
         }catch(SQLException ex){
             System.out.println(ex);
@@ -114,9 +130,9 @@ public class DBConnect {
         return false;
     }
 
-    public String getInfoFromColumn(String column,int value){
+    public String getInfoFromColumn(String column,int idAccount){
         try{
-            String query = "SELECT "+column+" from ACCOUNTS WHERE idAccount = "+value;
+            String query = "SELECT "+column+" from ACCOUNTS WHERE idAccount = "+idAccount;
             resultSet = statemenet.executeQuery(query);
             if(!resultSet.next())
                 return null;
@@ -174,6 +190,29 @@ public class DBConnect {
         return -1;
     }
 
+    public boolean existData(String exist,String table,String column,Integer id){
+        String whereInfo = "";
+
+        if(table.equals("accounts"))
+            whereInfo = "idAccount";
+        else if (table.equals("questions"))
+            whereInfo = "idQuestion";
+        else if (table.equals("tokens"))
+            whereInfo = "idTokens";
+
+        try{
+            String query = "SELECT DISTINCT " + exist + " FROM " + table + " WHERE " + whereInfo + " = " + id;
+            resultSet = statemenet.executeQuery(query);
+            if(!resultSet.next())
+                return false;
+            else
+                return true;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
     public void getImageFromSQL(int idQuiz,ImageView imageView){
         try{
             byte[] fileBytes;
@@ -192,5 +231,36 @@ public class DBConnect {
         }
     }
 
+    public static long writeJavaObject(Connection connect, Object object) throws Exception{
+        String className = object.getClass().getName();
+        PreparedStatement pstmt = connect.prepareStatement(WRITE_OBJECT_SQL,Statement.RETURN_GENERATED_KEYS);
 
+        pstmt.setObject(1,object);
+        pstmt.setInt(2,LoginController.idAccount_Current);
+        pstmt.executeUpdate();
+
+        ResultSet rs = pstmt.getGeneratedKeys();
+        int id = -1;
+        if(rs.next()){
+            id = rs.getInt(1);
+        }
+
+        rs.close();
+        pstmt.close();
+        return id;
+    }
+
+    public static Object readJavaObject(Connection conn,long id)throws Exception{
+        PreparedStatement pstmt = conn.prepareStatement(READ_OBJECT_SQL);
+        pstmt.setLong(1,id);
+        ResultSet rs = pstmt.executeQuery();
+        rs.next();
+        Object object = rs.getObject(1);
+        String className = object.getClass().getName();
+
+        rs.close();
+        pstmt.close();
+        System.out.println("readJavaObject: done de-serializing: " + className);
+        return object;
+    }
 }

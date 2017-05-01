@@ -15,6 +15,13 @@ import javafx.stage.Stage;
 import sun.rmi.runtime.Log;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
+
+
 
 
 public class MediuInvatareController{
@@ -30,6 +37,33 @@ public class MediuInvatareController{
     @FXML private ImageView imageView;
 
     private Integer idQuiz ;
+
+    private boolean isGenerated = false;
+    private ArrayList<Integer> questionsList = new ArrayList<Integer>();
+    private Queue<Integer> questionsQueue = new LinkedList<>();
+
+    //Daca isGenerated = false , coada nu este generata, o generam si o vom serializa. corespunzator userului
+    public void generateQueueForLearningMode(){
+
+        if(!isGenerated) {
+            DBConnect connect = new DBConnect();
+
+            //Adaugam in colectia questionsList elemtentele de la 1 la nuarul de intrebari
+            for (int i = 1; i <= connect.getCountFromSQL("questions"); ++i) {
+                questionsList.add(i);
+            }
+
+            //Amestecam numerele pentru a genera o coada cu id-uri random
+            Collections.shuffle(questionsList);
+
+            //Copiem id-urile din colectia questionsList in coada
+            for (int i = 0; i < questionsList.size(); ++i) {
+                questionsQueue.add(questionsList.get(i));
+            }
+            isGenerated = true;
+        }
+    }
+
 
     public void start(Stage stage)throws IOException {
         Parent home = FXMLLoader.load(getClass().getResource("/MediuInvatare.fxml"));
@@ -63,6 +97,20 @@ public class MediuInvatareController{
 
     @FXML private void initialize() throws InterruptedException {
         DBConnect connect = new DBConnect();
+        Connection conn = null;
+        try{
+           /* conn = DBConnect.getConnection();
+            conn.setAutoCommit(false);
+            long objectID = DBConnect.writeJavaObject(conn,qflm);
+            conn.commit();
+            System.out.println("Serialized objectID => " + objectID);*/
+
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+
 
         /* Setam progressBarul prin raportul dintre atributul progresMediu caracteristic fiecarui account din baza de date si numarul total de intrebari
         Atunci cand progresMediu = numaru total de intrebari * 2 atunci progressBar se va seta cu 1 si o sa fie complet mediul de invatare. */

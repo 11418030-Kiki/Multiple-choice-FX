@@ -1,17 +1,17 @@
 import com.jfoenix.controls.JFXButton;
-import javafx.application.Application;
+import com.jfoenix.controls.JFXDatePicker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class HomeController { // implements Initializable {
     @FXML private MenuItem profileInfo;
@@ -21,12 +21,17 @@ public class HomeController { // implements Initializable {
     @FXML private JFXButton mediuInvatareButton;
     @FXML private Label firstName;
     @FXML private Label lastName;
+    @FXML private JFXDatePicker currentDate;
 
     @FXML private void initialize(){
-        //Metodata norocu prostului , daca nu o gaseam era naspa.
         DBConnect connect = new DBConnect();
         firstName.setText(connect.getInfoFromColumn("firstname",LoginController.idAccount_Current));
         lastName.setText(connect.getInfoFromColumn("lastname",LoginController.idAccount_Current));
+        LocalDate today = LocalDate.now();
+        currentDate.setValue(today);
+        currentDate.setEditable(false); //Nu poate fi modificat
+        currentDate.setMouseTransparent(true); //Nu mai vede mouseu
+        currentDate.setDefaultColor(Paint.valueOf("red"));
     }
 
     public void start(Stage stage)throws IOException{

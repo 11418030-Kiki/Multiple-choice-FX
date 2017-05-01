@@ -1,4 +1,5 @@
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,7 @@ import java.io.IOException;
 public class UseTokenController {
     @FXML private Button backButton;
     @FXML private Button useToken;
-    @FXML private TextField textField;
+    @FXML private JFXTextField textField;
 
     public static String validToken;
 
