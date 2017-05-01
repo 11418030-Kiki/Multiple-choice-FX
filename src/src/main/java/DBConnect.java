@@ -24,7 +24,7 @@ public class DBConnect {
 
     //static final String WRITE_OBJECT_SQL = "INSERT INTO accounts(object_value) VALUES (?) WHERE idACCOUNT = ? ";
     static final String WRITE_OBJECT_SQL = "UPDATE accounts SET object_value = ? WHERE idACCOUNT = ?";
-    static final String READ_OBJECT_SQL = "SELECT object_value FROM accounts WHERE id = ?";
+    static final String READ_OBJECT_SQL = "SELECT object_value FROM accounts WHERE idACCOUNT = ?";
 
     public static Connection getConnection() throws Exception {
         String driver = "com.mysql.cj.jdbc.Driver";
@@ -250,9 +250,9 @@ public class DBConnect {
         return id;
     }
 
-    public static Object readJavaObject(Connection conn,long id)throws Exception{
+    public static Object readJavaObject(Connection conn,int id)throws Exception{
         PreparedStatement pstmt = conn.prepareStatement(READ_OBJECT_SQL);
-        pstmt.setLong(1,id);
+        pstmt.setInt(1,id);
         ResultSet rs = pstmt.executeQuery();
         rs.next();
         Object object = rs.getObject(1);
@@ -260,7 +260,6 @@ public class DBConnect {
 
         rs.close();
         pstmt.close();
-        System.out.println("readJavaObject: done de-serializing: " + className);
         return object;
     }
 }

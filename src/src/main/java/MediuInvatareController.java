@@ -11,17 +11,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sun.rmi.runtime.Log;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Queue;
-
-
+import java.util.*;
 
 
 public class MediuInvatareController{
@@ -30,38 +28,32 @@ public class MediuInvatareController{
     @FXML private JFXButton exitButton;
     @FXML private JFXButton jumpAnswerButton;
     @FXML private JFXProgressBar progressBar;
-    @FXML private Label questionLabel;
+    @FXML private Text questionLabel;
     @FXML private JFXCheckBox answerA;
     @FXML private JFXCheckBox answerB;
     @FXML private JFXCheckBox answerC;
     @FXML private ImageView imageView;
 
     private Integer idQuiz ;
+    private boolean isDeserializated = false;
+    private Queue deserializedQueue ;
+    private ArrayList deserializedArrayList ;
 
-    private boolean isGenerated = false;
-    private ArrayList<Integer> questionsList = new ArrayList<Integer>();
-    private Queue<Integer> questionsQueue = new LinkedList<>();
+    private void deserialize(){
 
-    //Daca isGenerated = false , coada nu este generata, o generam si o vom serializa. corespunzator userului
-    public void generateQueueForLearningMode(){
+        Connection conn = null;
 
-        if(!isGenerated) {
-            DBConnect connect = new DBConnect();
 
-            //Adaugam in colectia questionsList elemtentele de la 1 la nuarul de intrebari
-            for (int i = 1; i <= connect.getCountFromSQL("questions"); ++i) {
-                questionsList.add(i);
-            }
+        try {
+            conn = DBConnect.getConnection();
+            conn.setAutoCommit(false);
 
-            //Amestecam numerele pentru a genera o coada cu id-uri random
-            Collections.shuffle(questionsList);
+            byte[] byteList = (byte[])DBConnect.readJavaObject(conn,LoginController.idAccount_Current);
+            ObjectInputStream inStream = new ObjectInputStream(new ByteArrayInputStream(byteList));
+            deserializedQueue = (Queue) inStream.readObject();
 
-            //Copiem id-urile din colectia questionsList in coada
-            for (int i = 0; i < questionsList.size(); ++i) {
-                questionsQueue.add(questionsList.get(i));
-            }
-            isGenerated = true;
-        }
+        }catch (Exception ex) { ex.printStackTrace(); };
+
     }
 
 
@@ -93,24 +85,27 @@ public class MediuInvatareController{
                 }
             });
         }
+
+        if(event.getSource() == sendAnswerButton){
+
+        }
+
+        if(event.getSource() == jumpAnswerButton){
+
+        }
     }
 
     @FXML private void initialize() throws InterruptedException {
+
         DBConnect connect = new DBConnect();
-        Connection conn = null;
-        try{
-           /* conn = DBConnect.getConnection();
-            conn.setAutoCommit(false);
-            long objectID = DBConnect.writeJavaObject(conn,qflm);
-            conn.commit();
-            System.out.println("Serialized objectID => " + objectID);*/
 
-
-        }catch (Exception ex){
-            ex.printStackTrace();
+        if(!isDeserializated) {
+            deserialize();
+            isDeserializated = true;
         }
 
-
+        if(!deserializedQueue.isEmpty())
+            idQuiz = (int)deserializedQueue.element();
 
         /* Setam progressBarul prin raportul dintre atributul progresMediu caracteristic fiecarui account din baza de date si numarul total de intrebari
         Atunci cand progresMediu = numaru total de intrebari * 2 atunci progressBar se va seta cu 1 si o sa fie complet mediul de invatare. */
@@ -121,6 +116,15 @@ public class MediuInvatareController{
         answerC.setSelected(false);
         imageView.setImage(null);
 
+
+        questionLabel.setText(connect.getInfoFromQuestions("intrebareText",idQuiz));
+        answerA.setText(connect.getInfoFromQuestions("varianta1Text",idQuiz));
+        answerB.setText(connect.getInfoFromQuestions("varianta2Text",idQuiz));
+        answerC.setText(connect.getInfoFromQuestions("varianta3Text",idQuiz));
+
+        try{
+            connect.getImageFromSQL(idQuiz,imageView);
+        }catch (Exception ex) { System.out.println(ex); }
 
 
     }

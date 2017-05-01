@@ -40,7 +40,7 @@ public class SingUpController {
     private JFXTextField lastNameText;
 
     private ArrayList<Integer> questionsList = new ArrayList<Integer>();
-    private Queue<Integer> questionsQueue = new LinkedList<>();
+    private LinkedList<Integer> questionsLinkedList = new LinkedList<Integer>();
 
 
     @FXML
@@ -78,7 +78,7 @@ public class SingUpController {
                         Collections.shuffle(questionsList);
 
                         for (int i = 0; i < questionsList.size(); ++i) {
-                            questionsQueue.add(questionsList.get(i));
+                            questionsLinkedList.add(questionsList.get(i));
                         }
 
                         LoginController.idAccount_Current = connect.getCountFromSQL("accounts");
@@ -88,7 +88,7 @@ public class SingUpController {
                             conn = DBConnect.getConnection();
                             conn.setAutoCommit(false);
 
-                            long objectID = DBConnect.writeJavaObject(conn,questionsQueue);
+                            DBConnect.writeJavaObject(conn,questionsLinkedList);
                             conn.commit();
 
                         }catch (Exception ex){
