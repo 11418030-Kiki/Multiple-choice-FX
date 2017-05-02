@@ -37,7 +37,9 @@ public class MediuInvatareController{
     private Integer idQuiz ;
     private boolean isDeserializated = false;
     private Queue deserializedQueue ;
-    private ArrayList deserializedArrayList ;
+    private String answer = "";
+
+    private ArrayList<Integer> questionsList = new ArrayList<Integer>();
 
     private void deserialize(){
 
@@ -56,6 +58,18 @@ public class MediuInvatareController{
 
     }
 
+    private void checkAnswer() { //O mica functie care verifica ce buton ai apasat
+        if (answerA.isSelected()) {
+            answer+="a";
+        }
+        if (answerB.isSelected()) {
+            answer+="b";
+        }
+        if (answerC.isSelected()) {
+            answer+="c";
+        }
+    }
+
 
     public void start(Stage stage)throws IOException {
         Parent home = FXMLLoader.load(getClass().getResource("/MediuInvatare.fxml"));
@@ -70,7 +84,6 @@ public class MediuInvatareController{
             alert.setTitle("Confirma");
             alert.setHeaderText("Chestionare Auto categoria B");
             alert.setContentText("Esti sigur ca vrei sa iesi din mediul de invatare?");
-
             alert.showAndWait().ifPresent(response -> {
                 if(response == ButtonType.OK){
                     try {
@@ -87,17 +100,43 @@ public class MediuInvatareController{
         }
 
         if(event.getSource() == sendAnswerButton){
+            DBConnect connect = new DBConnect();
+            checkAnswer();
+            if(connect.verifyAnswer(idQuiz, answer)){
+                deserializedQueue.remove();
+                initialize();
+            }
+            else{
+                deserializedQueue.remove();
+                deserializedQueue.add(idQuiz);
+                initialize();
+            }
 
         }
 
         if(event.getSource() == jumpAnswerButton){
+            deserializedQueue.remove();
+            deserializedQueue.add(idQuiz);
+            initialize();
+        }
 
+        Connection connection = null;
+        try{
+            connection = DBConnect.getConnection();
+            connection.setAutoCommit(false);
+
+            DBConnect.writeJavaObject(connection,deserializedQueue);
+            connection.commit();
+
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
     }
 
     @FXML private void initialize() throws InterruptedException {
 
         DBConnect connect = new DBConnect();
+        answer = "";
 
         if(!isDeserializated) {
             deserialize();
@@ -110,7 +149,25 @@ public class MediuInvatareController{
         /* Setam progressBarul prin raportul dintre atributul progresMediu caracteristic fiecarui account din baza de date si numarul total de intrebari
         Atunci cand progresMediu = numaru total de intrebari * 2 atunci progressBar se va seta cu 1 si o sa fie complet mediul de invatare. */
 
-        progressBar.setProgress(Double.parseDouble(connect.getInfoFromColumn("progresMediu", LoginController.idAccount_Current)) / (connect.getCountFromSQL("questions") * 2));
+        progressBar.setProgress((double)((connect.getCountFromSQL("questions") * 2)-deserializedQueue.size())/(connect.getCountFromSQL("questions") * 2));
+        if (progressBar.getProgress() == 1){
+            //Daca progressBar este 1 am terminat mediul de invatare, generam altul
+            for (int i = 1; i <= connect.getCountFromSQL("questions"); ++i) {
+                questionsList.add(i);
+            }
+
+            for (int i = 1; i <= connect.getCountFromSQL("questions"); ++i) {
+                questionsList.add(i);
+            }
+
+            Collections.shuffle(questionsList);
+
+            for (int i = 0; i < questionsList.size(); ++i) {
+                deserializedQueue.add(questionsList.get(i));
+            }
+            initialize();
+        }
+
         answerA.setSelected(false);
         answerB.setSelected(false);
         answerC.setSelected(false);
