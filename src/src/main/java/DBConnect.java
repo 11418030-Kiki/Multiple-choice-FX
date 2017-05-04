@@ -244,5 +244,12 @@ public class DBConnect {
         }catch(Exception ex){ex.printStackTrace();}
     }
 
+    void changePassword(String newPassword,int idAccount){
+        try{
+            String query = "UPDATE accounts SET password = '" + newPassword + "' WHERE idACCOUNT = " + idAccount ;
+            statemenet.executeUpdate(query);
+        }catch(SQLException ex) {ex.printStackTrace();}
+    }
+
 
 }
