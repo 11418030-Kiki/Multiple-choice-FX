@@ -20,27 +20,18 @@ import java.util.Queue;
 
 public class SingUpController {
 
-    @FXML
-    private JFXButton backButton;
-    @FXML
-    private JFXButton signUpButton;
-    @FXML
-    private JFXTextField usernameText;
-    @FXML
-    private JFXTextField emailText;
-    @FXML
-    private JFXPasswordField passwordText;
-    @FXML
-    private JFXPasswordField passwordRepeatText;
-    @FXML
-    private JFXRadioButton termsButton;
-    @FXML
-    private JFXTextField firstNameText;
-    @FXML
-    private JFXTextField lastNameText;
+    @FXML private JFXButton backButton;
+    @FXML private JFXButton signUpButton;
+    @FXML private JFXTextField usernameText;
+    @FXML private JFXTextField emailText;
+    @FXML private JFXPasswordField passwordText;
+    @FXML private JFXPasswordField passwordRepeatText;
+    @FXML private JFXRadioButton termsButton;
+    @FXML private JFXTextField firstNameText;
+    @FXML private JFXTextField lastNameText;
 
-    private ArrayList<Integer> questionsList = new ArrayList<Integer>();
-    private LinkedList<Integer> questionsLinkedList = new LinkedList<Integer>();
+    private ArrayList<Integer> questionsList = new ArrayList<>();
+    private LinkedList<Integer> questionsLinkedList = new LinkedList<>();
 
 
     @FXML
@@ -77,8 +68,8 @@ public class SingUpController {
 
                         Collections.shuffle(questionsList);
 
-                        for (int i = 0; i < questionsList.size(); ++i) {
-                            questionsLinkedList.add(questionsList.get(i));
+                        for (Integer aQuestionsList : questionsList) {
+                            questionsLinkedList.add(aQuestionsList);
                         }
 
                         LoginController.idAccount_Current = connect.getCountFromSQL("accounts");
@@ -97,6 +88,14 @@ public class SingUpController {
 
 
                         System.out.println("Your account has been created.");
+
+                        Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+                        Scene scene = new Scene(root,600,400);
+                        Stage stage=(Stage) backButton.getScene().getWindow();
+                        stage.setTitle("Chestionare Auto categoria B");
+                        stage.setScene(scene);
+                        stage.show();
+
                     } else {
                         System.out.println("Termenii nu sunt acceptati");
                     }

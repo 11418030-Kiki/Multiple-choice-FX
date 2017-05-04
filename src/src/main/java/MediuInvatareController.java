@@ -29,6 +29,7 @@ public class MediuInvatareController{
     @FXML private JFXButton jumpAnswerButton;
     @FXML private JFXProgressBar progressBar;
     @FXML private Text questionLabel;
+    @FXML private Text procentText;
     @FXML private JFXCheckBox answerA;
     @FXML private JFXCheckBox answerB;
     @FXML private JFXCheckBox answerC;
@@ -37,9 +38,9 @@ public class MediuInvatareController{
     private Integer idQuiz ;
     private boolean isDeserializated = false;
     private Queue deserializedQueue ;
-    private String answer = "";
 
     private ArrayList<Integer> questionsList = new ArrayList<Integer>();
+    private StringBuilder answer = new StringBuilder();
 
     private void deserialize(){
 
@@ -60,13 +61,13 @@ public class MediuInvatareController{
 
     private void checkAnswer() { //O mica functie care verifica ce buton ai apasat
         if (answerA.isSelected()) {
-            answer+="a";
+            answer.append("a");
         }
         if (answerB.isSelected()) {
-            answer+="b";
+            answer.append("b");
         }
         if (answerC.isSelected()) {
-            answer+="c";
+            answer.append("c");
         }
     }
 
@@ -102,7 +103,7 @@ public class MediuInvatareController{
         if(event.getSource() == sendAnswerButton){
             DBConnect connect = new DBConnect();
             checkAnswer();
-            if(connect.verifyAnswer(idQuiz, answer)){
+            if(connect.verifyAnswer(idQuiz, answer.toString())){
                 deserializedQueue.remove();
                 initialize();
             }
@@ -136,7 +137,7 @@ public class MediuInvatareController{
     @FXML private void initialize() throws InterruptedException {
 
         DBConnect connect = new DBConnect();
-        answer = "";
+        answer.delete(0,answer.length());
 
         if(!isDeserializated) {
             deserialize();
@@ -150,6 +151,8 @@ public class MediuInvatareController{
         Atunci cand progresMediu = numaru total de intrebari * 2 atunci progressBar se va seta cu 1 si o sa fie complet mediul de invatare. */
 
         progressBar.setProgress((double)((connect.getCountFromSQL("questions") * 2)-deserializedQueue.size())/(connect.getCountFromSQL("questions") * 2));
+        double progress = Math.floor(progressBar.getProgress()*100*100) / 100;
+        procentText.setText(Double.toString(progress) + " %");
         if (progressBar.getProgress() == 1){
             //Daca progressBar este 1 am terminat mediul de invatare, generam altul
             for (int i = 1; i <= connect.getCountFromSQL("questions"); ++i) {

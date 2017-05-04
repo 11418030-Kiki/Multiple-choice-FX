@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
    <children>
       <Label alignment="TOP_CENTER" layoutY="-1.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #009688;" text="Chestionare auto categoria B" textFill="WHITE">
          <font>
@@ -25,4 +26,4 @@
       <JFXPasswordField fx:id="password" alignment="TOP_CENTER" layoutX="209.0" layoutY="200.0" prefHeight="25.0" prefWidth="182.0" promptText="password" />
       <JFXTextField fx:id="username" alignment="TOP_CENTER" layoutX="209.0" layoutY="148.0" prefHeight="25.0" prefWidth="182.0" promptText="username" />
    </children>
-</Pane>
+</AnchorPane>

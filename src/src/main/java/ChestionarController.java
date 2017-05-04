@@ -1,4 +1,5 @@
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXRadioButton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -31,20 +32,23 @@ public class ChestionarController {
     @FXML private Label gresiteText;
     @FXML private Label corecteText;
 
-    @FXML private JFXRadioButton answerA;
-    @FXML private JFXRadioButton answerB;
-    @FXML private JFXRadioButton answerC;
+    @FXML private JFXCheckBox answerA;
+    @FXML private JFXCheckBox answerB;
+    @FXML private JFXCheckBox answerC;
 
     @FXML private ImageView imagineQuiz;
 
     private boolean isStarted = false;
     private boolean questionsAreOver = false;
 
-    private String answer  = "";
+    //private String answer  = "";
     private Integer correctAnswers = 0;
     private Integer wrongAnswers = 0;
     private int i = -1;
     private int j = -1;
+
+    StringBuilder answer = new StringBuilder();
+
 
     Timer timer = new Timer() ;
 
@@ -87,7 +91,7 @@ public class ChestionarController {
     }
 
     private void checkAnswer() { //O mica functie care verifica ce buton ai apasat
-        if (answerA.isSelected()) {
+        /*if (answerA.isSelected()) {
             answer+="a";
         }
         if (answerB.isSelected()) {
@@ -95,6 +99,15 @@ public class ChestionarController {
         }
         if (answerC.isSelected()) {
             answer+="c";
+        }*/
+        if(answerA.isSelected()){
+            answer.append("a");
+        }
+        if(answerB.isSelected()){
+            answer.append("b");
+        }
+        if(answerC.isSelected()){
+            answer.append("c");
         }
     }
 
@@ -169,7 +182,7 @@ public class ChestionarController {
         if (event.getSource() == sendAnswer) {  //Apasam pe buton , verificam ce am bifat
             checkAnswer();  //Verificam ce am bifat si adaugam in string-ul answer , asta o sa il verfiicam cu raspunsu din baza de date
             DBConnect connect = new DBConnect();
-            if (connect.verifyAnswer(idQuiz, answer)==true) {  //Verificam daca ce am introdus este corect;
+            if (connect.verifyAnswer(idQuiz, answer.toString())==true) {  //Verificam daca ce am introdus este corect;
                 correctAnswers++;
                 if(questionsAreOver){
                     sariQueue.remove();
@@ -183,13 +196,23 @@ public class ChestionarController {
                 }
                 gresiteText.setText("Intrebari gresite: "+wrongAnswers);
             }
-            answer = "";
+            answer.delete(0,answer.length());
             if(wrongAnswers > 4 || correctAnswers + wrongAnswers == 26){
                 //Aici ori pici ori treci
-                if(wrongAnswers > 4)
+                if(wrongAnswers > 4) {
                     CongratulationsController.resultText = "RESPINS";
-                else
+                    connect.setContorStatus("chestionareRespins",
+                            Integer.parseInt(connect.getInfoFromColumn("chestionareRespins",LoginController.idAccount_Current)) + 1,
+                            LoginController.idAccount_Current);
+                }
+                else {
                     CongratulationsController.resultText = "ADMIS";
+
+                    connect.setContorStatus("chestionareAdmis",
+                            Integer.parseInt(connect.getInfoFromColumn("chestionareAdmis",LoginController.idAccount_Current)) + 1,
+                            LoginController.idAccount_Current);
+
+                }
 
                 Parent result = FXMLLoader.load(getClass().getResource("/Congratulations.fxml"));
                 Scene scene = new Scene(result,600,400);

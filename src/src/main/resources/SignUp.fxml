@@ -5,10 +5,10 @@
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F5F5F5;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SingUpController">
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F5F5F5;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SingUpController">
    <children>
       <JFXButton fx:id="signUpButton" layoutX="83.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleSingUpButton" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: #4CAF50;" text="Sign Up" />
       <JFXPasswordField fx:id="passwordText" layoutX="83.0" layoutY="159.0" prefHeight="25.0" prefWidth="186.0" promptText="password" />
@@ -25,4 +25,4 @@
       <JFXTextField fx:id="lastNameText" layoutX="381.0" layoutY="200.0" promptText="Lastname" />
       <JFXTextField fx:id="firstNameText" layoutX="381.0" layoutY="159.0" promptText="Firstname" />
    </children>
-</Pane>
+</AnchorPane>

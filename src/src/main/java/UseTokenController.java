@@ -17,7 +17,7 @@ public class UseTokenController {
     @FXML private Button useToken;
     @FXML private JFXTextField textField;
 
-    public static String validToken;
+    static String validToken;
 
     @FXML private Label MessageText;
 
