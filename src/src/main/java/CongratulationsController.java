@@ -15,7 +15,7 @@ public class CongratulationsController {
     @FXML private JFXButton tryAgainButton;
     @FXML private JFXButton goHomeButton;
 
-    public static String resultText ;
+    static String resultText ;
 
     @FXML private void initialize(){
         resultMessage.setText("Ai fost declarat " + resultText);
