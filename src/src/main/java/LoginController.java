@@ -1,8 +1,5 @@
 
-import com.jfoenix.controls.JFXBadge;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,8 +23,16 @@ public class LoginController {
     @FXML private PasswordField password;
     @FXML private Label textLabel;
     @FXML private JFXButton exitButton;
+    @FXML private JFXButton forgotPasswordButton;
 
     public static int idAccount_Current;
+
+    void start(Stage stage)throws IOException {
+        Parent home = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+        Scene homeScene = new Scene(home, 600, 400);
+        stage.setScene(homeScene);
+        stage.show();
+    }
 
     @FXML private void handleButtonAction(ActionEvent event) throws IOException{
 
@@ -54,7 +59,14 @@ public class LoginController {
             }
             else{
                 textLabel.setText("Datele introduse sunt invalide");
+                forgotPasswordButton.setVisible(true);
             }
+        }
+        if(event.getSource() == forgotPasswordButton){
+            Stage stage = (Stage) forgotPasswordButton.getScene().getWindow();
+            stage.setTitle("Chestionare Auto categoria B");
+            ForgotPasswordController fpc = new ForgotPasswordController();
+            fpc.start(stage);
         }
     }
 }

@@ -8,10 +8,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import sun.rmi.runtime.Log;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class AccountController {
 
@@ -30,6 +33,8 @@ public class AccountController {
         stage.show();
     }
 
+
+
     @FXML private void initialize() throws InterruptedException {
         DBConnect connect = new DBConnect();
 
@@ -42,6 +47,8 @@ public class AccountController {
                 new PieChart.Data("Chestionare Respins",chestionareRespins));
 
         pieChart.setData(list);
+
+
 
 
 

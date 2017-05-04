@@ -251,5 +251,33 @@ public class DBConnect {
         }catch(SQLException ex) {ex.printStackTrace();}
     }
 
+    void changeEmail(String newEmail,int idAccount){
+        try{
+            String query = "UPDATE accounts SET email = '" + newEmail + "' WHERE idACCOUNT = " + idAccount;
+            statemenet.executeUpdate(query);
+        }catch (Exception ex){ex.printStackTrace();}
+    }
+
+    boolean verifyEmailAndUsername(String email,String username){
+        try{
+            String query = "SELECT * FROM accounts WHERE email = '" + email + "' AND username = '" + username + "' ";
+            resultSet = statemenet.executeQuery(query);
+            if(!resultSet.next())
+                return false;
+            else return true;
+        }catch (Exception ex){ex.printStackTrace();}
+        return false;
+    }
+
+    int getAccountID(String username){
+        try{
+            String query = "SELECT idACCOUNT FROM ACCOUNTS WHERE username = '" + username + "'";
+            resultSet = statemenet.executeQuery(query);
+            if(!resultSet.next())
+                return -1;
+            else return resultSet.getInt(1);
+        }catch (Exception ex) {ex.printStackTrace();}
+        return -1;
+    }
 
 }

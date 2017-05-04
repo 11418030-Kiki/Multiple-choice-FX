@@ -24,7 +24,7 @@ public class PasswordChangeController {
         if(oldPasswordField.getText().equals(connect.getInfoFromColumn("password",LoginController.idAccount_Current))){
             //Daca parola old este aia din baza de date, mergem mai departe
             if(newPasswordField.getText().trim().isEmpty() == false && confirmNewPasswordField.getText().trim().isEmpty() == false
-                    && newPasswordField.getText().equals(confirmNewPasswordField.getText())){
+                    && newPasswordField.getText().equals(confirmNewPasswordField.getText()) && newPasswordField.getText().matches("^[ ]{9},{16}")){
                 //Daca parola nu este introdusa si parola noua corespunde cu confirmarea, scriem in baza de date si afisam
                 connect.changePassword(newPasswordField.getText(),LoginController.idAccount_Current);
                 resultLabel.setText("Parola a fost schimbata cu success !");

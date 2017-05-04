@@ -1,10 +1,12 @@
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,6 +16,8 @@ public class EmailChangeController {
     @FXML private JFXTextField newMailText;
     @FXML private JFXButton changeMailButton;
     @FXML private JFXButton backButton;
+    @FXML private JFXRadioButton termsButton;
+    @FXML private Label messageLabel;
 
     void start(Stage stage)throws IOException{
         Parent home = FXMLLoader.load(getClass().getResource("/EmailChange.fxml"));
@@ -34,6 +38,13 @@ public class EmailChangeController {
             stage.setTitle("Chestionare Auto categoria B");
             AccountController accountController = new AccountController();
             accountController.start(stage);
+        }
+        if(event.getSource() == changeMailButton){
+            if(!newMailText.getText().trim().isEmpty() && termsButton.isSelected() && newMailText.getText().contains("@")){
+                DBConnect connect = new DBConnect();
+                connect.changeEmail(newMailText.getText(),LoginController.idAccount_Current);
+                messageLabel.setText("Success !");
+            }
         }
     }
 }
