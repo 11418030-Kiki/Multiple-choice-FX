@@ -1,12 +1,15 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
+import insidefx.undecorator.Undecorator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,7 +24,11 @@ public class EmailChangeController {
 
     void start(Stage stage)throws IOException{
         Parent home = FXMLLoader.load(getClass().getResource("/EmailChange.fxml"));
-        Scene homeScene = new Scene(home, 600, 400);
+        Undecorator undecorator = new Undecorator(stage,(Region)home);
+        undecorator.getStylesheets().add("skin/undecorator.css");
+
+        Scene homeScene = new Scene(undecorator,620,430);
+        homeScene.setFill(Color.TRANSPARENT);
         stage.setScene(homeScene);
         stage.show();
     }
@@ -35,7 +42,7 @@ public class EmailChangeController {
     @FXML private void handleButtonAction(ActionEvent event) throws IOException ,InterruptedException{
         if(event.getSource() == backButton){
             Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setTitle("Chestionare Auto categoria B");
+            //stage.setTitle("Chestionare Auto categoria B");
             AccountController accountController = new AccountController();
             accountController.start(stage);
         }

@@ -4,27 +4,25 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.layout.AnchorPane?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ChestionarController">
-   <children>
       <Label layoutX="63.0" layoutY="69.0" text="Intrebare:">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
       <Label fx:id="quizText" layoutX="63.0" layoutY="106.0" prefHeight="38.0" prefWidth="929.0" text="Aici vine intrebarea" />
-      <JFXButton fx:id="sendAnswer" layoutX="60.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="112.0" prefWidth="276.0" style="-fx-background-color: lightgreen;" text="Trimite" />
-      <JFXButton fx:id="exitButton" layoutX="356.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="112.0" prefWidth="317.0" style="-fx-background-color: pink;" text="Renunta " />
-      <JFXButton fx:id="jumpButton" layoutX="698.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="112.0" prefWidth="304.0" style="-fx-background-color: yellow;" text="Sari peste" />
-      <ImageView fx:id="imagineQuiz" fitHeight="231.0" fitWidth="256.0" layoutX="745.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="corecteText" layoutX="380.0" layoutY="23.0" text="Intrebari corecte: " />
-      <Label fx:id="gresiteText" layoutX="514.0" layoutY="23.0" text="Intrebari gresite:" />
-      <Text fx:id="timpText" layoutX="850.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="153.13671875" />
+      <JFXButton fx:id="sendAnswer" layoutX="19.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="112.0" prefWidth="317.0" style="-fx-background-color: teal;" text="Trimite" textFill="WHITE" />
+      <JFXButton fx:id="exitButton" layoutX="354.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="112.0" prefWidth="317.0" style="-fx-background-color: crimson;" text="Renunta " textFill="WHITE" />
+      <JFXButton fx:id="jumpButton" layoutX="685.0" layoutY="618.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="112.0" prefWidth="317.0" style="-fx-background-color: bisque;" text="Sari peste" />
+      <ImageView fx:id="imagineQuiz" fitHeight="231.0" fitWidth="256.0" layoutX="736.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="corecteText" layoutX="379.0" layoutY="34.0" text="Intrebari corecte: " />
+      <Label fx:id="gresiteText" layoutX="513.0" layoutY="34.0" text="Intrebari gresite:" />
+      <Text fx:id="timpText" layoutX="856.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Timp ramas: " wrappingWidth="153.13671875" />
       <JFXCheckBox fx:id="answerC" layoutX="55.0" layoutY="367.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="936.0" text="CheckBox" />
       <JFXCheckBox fx:id="answerB" layoutX="55.0" layoutY="319.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="936.0" text="CheckBox" />
       <JFXCheckBox fx:id="answerA" layoutX="55.0" layoutY="270.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="936.0" text="CheckBox" />
-   </children>
 </AnchorPane>

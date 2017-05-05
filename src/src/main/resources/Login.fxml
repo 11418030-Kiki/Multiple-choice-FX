@@ -8,22 +8,20 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
-   <children>
-      <Label alignment="TOP_CENTER" layoutY="-1.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #009688;" text="Chestionare auto categoria B" textFill="WHITE">
+      <JFXTextField fx:id="username" alignment="TOP_CENTER" layoutX="191.0" layoutY="153.0" prefHeight="29.0" prefWidth="233.0" promptText="username" />
+      <JFXPasswordField fx:id="password" alignment="TOP_CENTER" layoutX="191.0" layoutY="200.0" prefHeight="29.0" prefWidth="233.0" promptText="password" />
+      <Label alignment="CENTER" layoutY="-1.0" prefHeight="65.0" prefWidth="615.0" style="-fx-background-color: teal;" text="Chestionare auto categoria B" textFill="WHITE">
          <font>
-            <Font size="19.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <JFXButton fx:id="signIn" layoutX="36.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: green;" text="Sign In" />
-      <JFXButton fx:id="useToken" layoutX="237.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="141.0" style="-fx-background-color: grey;" text="Use a token" />
+      <JFXButton fx:id="signIn" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="175.0" style="-fx-background-color: TEAL;" text="SIGN IN" textFill="WHITE" />
+      <JFXButton fx:id="useToken" layoutX="222.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="157.0" style="-fx-background-color: grey;" text="Use a token" textFill="WHITE" />
       <Label fx:id="textLabel" alignment="CENTER" layoutX="183.0" layoutY="271.0" prefHeight="21.0" prefWidth="249.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <JFXButton fx:id="exitButton" layoutX="400.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="171.0" style="-fx-background-color: pink;" text="Exit" />
-      <JFXPasswordField fx:id="password" alignment="TOP_CENTER" layoutX="209.0" layoutY="200.0" prefHeight="25.0" prefWidth="182.0" promptText="password" />
-      <JFXTextField fx:id="username" alignment="TOP_CENTER" layoutX="209.0" layoutY="148.0" prefHeight="25.0" prefWidth="182.0" promptText="username" />
-      <JFXButton fx:id="forgotPasswordButton" layoutX="237.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="141.0" text="Am uitat parola" visible="false"/>
-   </children>
+      <JFXButton fx:id="exitButton" layoutX="411.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="175.0" style="-fx-background-color: crimson;" text="EXIT" textFill="WHITE" />
+      <JFXButton fx:id="forgotPasswordButton" layoutX="221.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="157.0" style="-fx-background-color: bisque;" text="Am uitat parola" visible="false" />
 </AnchorPane>

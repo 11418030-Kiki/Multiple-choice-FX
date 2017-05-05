@@ -1,17 +1,22 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXRadioButton;
+import insidefx.undecorator.Undecorator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -47,59 +52,58 @@ public class ChestionarController {
     private int i = -1;
     private int j = -1;
 
-    StringBuilder answer = new StringBuilder();
+    private StringBuilder answer = new StringBuilder();
 
 
-    Timer timer = new Timer() ;
+    private Timer timer = new Timer() ;
 
     private int countDown  = 1800;
 
-    public void startCountDown(){
+    private void startCountDown(){
         //Pentru cronometru
         timer.schedule(new TimerTask(){
             @Override
             public void run(){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
+                Platform.runLater(() -> {
 
-                        countDown--;
-                        timpText.setText("Timp ramas: " + countDown / 60 + ": "+countDown % 60);
+                    countDown--;
+                    timpText.setText("Timp ramas: " + countDown / 60 + ": "+countDown % 60);
 
-                        if(countDown < 0) {
-                            timer.cancel();
-                            exit(0);
+                    if(countDown < 0) {
+                        timer.cancel();
+                        exit(0);
 
-                        }
                     }
                 });
             }
         },1000,1000);
     }
 
-    public static Integer idQuiz ;
+    private static Integer idQuiz ;
 
-    private final ArrayList<Integer> list = new ArrayList<Integer>();
+    private final ArrayList<Integer> list = new ArrayList<>();
     //private ArrayList<String> questionArray = new ArrayList<String>(); Nu il mai folosim acum era ceva pentru schimbat ordine raspuns
-    private Queue<Integer> sariQueue = new LinkedList<Integer>();
+    private Queue<Integer> sariQueue = new LinkedList<>();
 
     public void start(Stage stage)throws IOException{
+
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
         Parent home = FXMLLoader.load(getClass().getResource("/Chestionar.fxml"));
-        Scene homeScene = new Scene(home, 1024, 768);
+
+        Undecorator undecorator = new Undecorator(stage,(Region)home);
+        undecorator.getStylesheets().add("skin/undecorator.css");
+
+        stage.setX((screenBounds.getWidth() - 1024) / 2);
+        stage.setY((screenBounds.getHeight() - 768) / 2);
+
+        Scene homeScene = new Scene(undecorator);
+        homeScene.setFill(Color.TRANSPARENT);
         stage.setScene(homeScene);
         stage.show();
     }
 
     private void checkAnswer() { //O mica functie care verifica ce buton ai apasat
-        /*if (answerA.isSelected()) {
-            answer+="a";
-        }
-        if (answerB.isSelected()) {
-            answer+="b";
-        }
-        if (answerC.isSelected()) {
-            answer+="c";
-        }*/
         if(answerA.isSelected()){
             answer.append("a");
         }
@@ -119,7 +123,7 @@ public class ChestionarController {
         DBConnect connect = new DBConnect();
         if(list.isEmpty()) {
             for (int i = 1; i <= connect.getCountFromSQL("questions"); i++) {
-                list.add(new Integer(i));
+                list.add(i);
             }
             Collections.shuffle(list);
         }
@@ -143,9 +147,7 @@ public class ChestionarController {
             isStarted = true;
             startCountDown();
         }
-        else{
 
-        }
 
 
        /* Aici deselectam radio butoanele si stegem imaignea care a fost inainte in imageView. In cazul in care
@@ -173,7 +175,7 @@ public class ChestionarController {
         questionArray.removeAll(questionArray);*/
         try{
             connect.getImageFromSQL(idQuiz,imagineQuiz);
-        }catch (Exception ex) { System.out.println(ex); }
+        }catch (Exception ex) { ex.printStackTrace(); }
 
 
     }
@@ -182,7 +184,7 @@ public class ChestionarController {
         if (event.getSource() == sendAnswer) {  //Apasam pe buton , verificam ce am bifat
             checkAnswer();  //Verificam ce am bifat si adaugam in string-ul answer , asta o sa il verfiicam cu raspunsu din baza de date
             DBConnect connect = new DBConnect();
-            if (connect.verifyAnswer(idQuiz, answer.toString())==true) {  //Verificam daca ce am introdus este corect;
+            if (connect.verifyAnswer(idQuiz, answer.toString())) {  //Verificam daca ce am introdus este corect;
                 correctAnswers++;
                 if(questionsAreOver){
                     sariQueue.remove();
@@ -217,7 +219,7 @@ public class ChestionarController {
                 Parent result = FXMLLoader.load(getClass().getResource("/Congratulations.fxml"));
                 Scene scene = new Scene(result,600,400);
                 Stage stage=(Stage) sendAnswer.getScene().getWindow();
-                stage.setTitle("Chestionare Auto categoria B");
+                //stage.setTitle("Chestionare Auto categoria B");
                 stage.setScene(scene);
                 stage.show();
 
@@ -245,7 +247,7 @@ public class ChestionarController {
                 if(response == ButtonType.OK){
                     try {
                         Stage stage = (Stage) exitButton.getScene().getWindow();
-                        stage.setTitle("Chestionare Auto categoria B");
+                        //stage.setTitle("Chestionare Auto categoria B");
                         HomeController home = new HomeController();
                         home.start(stage);
                     }catch (IOException ex){ ex.printStackTrace(); }

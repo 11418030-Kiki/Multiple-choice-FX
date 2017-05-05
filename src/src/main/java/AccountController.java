@@ -1,4 +1,5 @@
 import com.jfoenix.controls.JFXButton;
+import insidefx.undecorator.Undecorator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,8 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sun.rmi.runtime.Log;
 
@@ -28,7 +31,11 @@ public class AccountController {
 
     void start(Stage stage)throws IOException {
         Parent home = FXMLLoader.load(getClass().getResource("/Account.fxml"));
-        Scene homeScene = new Scene(home, 600, 400);
+        Undecorator undecorator = new Undecorator(stage,(Region)home);
+        undecorator.getStylesheets().add("skin/undecorator.css");
+
+        Scene homeScene = new Scene(undecorator);
+        homeScene.setFill(Color.TRANSPARENT);
         stage.setScene(homeScene);
         stage.show();
     }
@@ -63,19 +70,19 @@ public class AccountController {
 
         if(event.getSource() == backButton){
             Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setTitle("Chestionare Auto categoria B");
+            //stage.setTitle("Chestionare Auto categoria B");
             HomeController home = new HomeController();
             home.start(stage);
         }
         else if (event.getSource() == changePasswordButton){
             Stage stage = (Stage)changePasswordButton.getScene().getWindow();
-            stage.setTitle("Chestionare Auto categoria B - Schimba Parola");
+            //stage.setTitle("Chestionare Auto categoria B - Schimba Parola");
             PasswordChangeController passchange = new PasswordChangeController();
             passchange.start(stage);
         }
         else if(event.getSource() == changeEmailButton){
             Stage stage = (Stage)changeEmailButton.getScene().getWindow();
-            stage.setTitle("Chestionare Auto categoria B - Schimba Email");
+           // stage.setTitle("Chestionare Auto categoria B - Schimba Email");
             EmailChangeController emailChange = new EmailChangeController();
             emailChange.start(stage);
         }

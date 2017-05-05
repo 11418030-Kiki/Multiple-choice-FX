@@ -25,7 +25,7 @@ public class CongratulationsController {
         if(event.getSource() == tryAgainButton){
 
             Stage stage = (Stage)tryAgainButton.getScene().getWindow();
-            stage.setTitle("Chestionare Auto categoria B");
+            //stage.setTitle("Chestionare Auto categoria B");
             ChestionarController home = new ChestionarController();
             home.start(stage);
 
@@ -35,7 +35,7 @@ public class CongratulationsController {
             Parent goHome = FXMLLoader.load(getClass().getResource("/Home.fxml"));
             Scene scene = new Scene(goHome,600,400);
             Stage stage = (Stage) goHomeButton.getScene().getWindow();
-            stage.setTitle("Chestionare Auto categoria B");
+            //stage.setTitle("Chestionare Auto categoria B");
             stage.setScene(scene);
             stage.show();
 

@@ -8,17 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
-   <children>
-      <JFXButton fx:id="incepeChestionar" layoutX="28.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="167.0" style="-fx-background-color: springgreen;" text="Incepe un chestionar" textOverrun="CLIP" />
-      <JFXButton fx:id="logoutButton" layoutX="507.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: pink;" text="Logout" />
-      <JFXButton fx:id="mediuInvatareButton" layoutX="417.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="167.0" style="-fx-background-color: royalblue;" text="Mediu de invatare" />
-      <Label fx:id="firstName" layoutX="14.0" layoutY="14.0" text="Label" />
-      <Label fx:id="lastName" layoutX="14.0" layoutY="38.0" text="Label" />
-      <JFXDatePicker fx:id="currentDate" layoutX="415.0" layoutY="143.0" prefHeight="30.0" prefWidth="171.0" />
+      <JFXButton fx:id="incepeChestionar" layoutX="14.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="260.0" style="-fx-background-color: springgreen;" text="Incepe un chestionar" textOverrun="CLIP" />
+      <JFXButton fx:id="logoutButton" layoutX="501.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: pink;" text="Logout" />
+      <JFXButton fx:id="mediuInvatareButton" layoutX="324.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="260.0" style="-fx-background-color: royalblue;" text="Mediu de invatare" />
+      <Label fx:id="firstName" layoutX="14.0" layoutY="55.0" text="Label" />
+      <Label fx:id="lastName" layoutX="14.0" layoutY="84.0" text="Label" />
+      <JFXDatePicker fx:id="currentDate" layoutX="456.0" layoutY="146.0" prefHeight="30.0" prefWidth="130.0" />
       <Label layoutX="483.0" layoutY="113.0" prefHeight="21.0" prefWidth="100.0" text="Data curenta:" />
       <JFXButton fx:id="adminButton" layoutX="27.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="167.0" style="-fx-background-color: yellow;" text="Administrare" visible="false" />
       <JFXButton fx:id="accountInfo" layoutX="30.0" layoutY="145.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="161.0" style="-fx-background-color: cyan;" text="Account Info" />
-      <JFXTimePicker fx:id="timePicker" layoutX="415.0" layoutY="193.0" prefHeight="28.0" prefWidth="171.0" />
-      <JFXToggleButton fx:id="musicToggle" layoutX="353.0" layoutY="-3.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="11.0" prefWidth="148.0" text="Music on" />
-   </children>
+      <JFXTimePicker fx:id="timePicker" layoutX="456.0" layoutY="189.0" prefHeight="30.0" prefWidth="130.0" />
+      <JFXToggleButton fx:id="musicToggle" layoutX="346.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="11.0" prefWidth="148.0" text="Music on" />
+      <Label alignment="CENTER" prefHeight="43.0" prefWidth="615.0" style="-fx-background-color: TEAL;" text="Chestionare Auto categoria B" textFill="WHITE" />
 </AnchorPane>

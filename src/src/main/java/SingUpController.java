@@ -40,7 +40,7 @@ public class SingUpController {
             Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
             Scene scene = new Scene(root, 600, 400);
             Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setTitle("Chestionare Auto categoria B");
+            //stage.setTitle("Chestionare Auto categoria B");
             stage.setScene(scene);
         }
     }
@@ -68,13 +68,11 @@ public class SingUpController {
 
                         Collections.shuffle(questionsList);
 
-                        for (Integer aQuestionsList : questionsList) {
-                            questionsLinkedList.add(aQuestionsList);
-                        }
+                        questionsLinkedList.addAll(questionsList);
 
                         LoginController.idAccount_Current = connect.getCountFromSQL("accounts");
 
-                        Connection conn = null;
+                        Connection conn;
                         try{
                             conn = DBConnect.getConnection();
                             conn.setAutoCommit(false);

@@ -1,6 +1,7 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXProgressBar;
+import insidefx.undecorator.Undecorator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sun.rmi.runtime.Log;
@@ -39,12 +42,12 @@ public class MediuInvatareController{
     private boolean isDeserializated = false;
     private Queue deserializedQueue ;
 
-    private ArrayList<Integer> questionsList = new ArrayList<Integer>();
+    private ArrayList<Integer> questionsList = new ArrayList<>();
     private StringBuilder answer = new StringBuilder();
 
     private void deserialize(){
 
-        Connection conn = null;
+        Connection conn;
 
 
         try {
@@ -55,7 +58,7 @@ public class MediuInvatareController{
             ObjectInputStream inStream = new ObjectInputStream(new ByteArrayInputStream(byteList));
             deserializedQueue = (Queue) inStream.readObject();
 
-        }catch (Exception ex) { ex.printStackTrace(); };
+        }catch (Exception ex) { ex.printStackTrace(); }
 
     }
 
@@ -74,7 +77,11 @@ public class MediuInvatareController{
 
     public void start(Stage stage)throws IOException {
         Parent home = FXMLLoader.load(getClass().getResource("/MediuInvatare.fxml"));
-        Scene homeScene = new Scene(home, 1000, 600);
+        Undecorator undecorator = new Undecorator(stage,(Region)home);
+        undecorator.getStylesheets().add("skin/undecorator.css");
+
+        Scene homeScene = new Scene(undecorator);
+        homeScene.setFill(Color.TRANSPARENT);
         stage.setScene(homeScene);
         stage.show();
     }
@@ -89,7 +96,7 @@ public class MediuInvatareController{
                 if(response == ButtonType.OK){
                     try {
                         Stage stage = (Stage) exitButton.getScene().getWindow();
-                        stage.setTitle("Chestionare Auto categoria B");
+                        //stage.setTitle("Chestionare Auto categoria B");
                         HomeController home = new HomeController();
                         home.start(stage);
                     }catch (IOException ex){ ex.printStackTrace(); }
@@ -121,7 +128,7 @@ public class MediuInvatareController{
             initialize();
         }
 
-        Connection connection = null;
+        Connection connection;
         try{
             connection = DBConnect.getConnection();
             connection.setAutoCommit(false);
@@ -165,9 +172,7 @@ public class MediuInvatareController{
 
             Collections.shuffle(questionsList);
 
-            for (int i = 0; i < questionsList.size(); ++i) {
-                deserializedQueue.add(questionsList.get(i));
-            }
+            deserializedQueue.addAll(questionsList);
             initialize();
         }
 
@@ -184,7 +189,7 @@ public class MediuInvatareController{
 
         try{
             connect.getImageFromSQL(idQuiz,imageView);
-        }catch (Exception ex) { System.out.println(ex); }
+        }catch (Exception ex) { ex.printStackTrace(); }
 
 
     }
