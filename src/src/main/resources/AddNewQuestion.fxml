@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddNewQuestionController">
+   <children>
+      <JFXTextField fx:id="questionField" layoutX="131.0" layoutY="55.0" promptText="Adauga intrebare noua " />
+      <JFXTextField fx:id="answerA" layoutX="47.0" layoutY="117.0" promptText="Varianta A" />
+      <JFXTextField fx:id="answerB" layoutX="47.0" layoutY="171.0" promptText="Varianta B" />
+      <JFXTextField fx:id="answerC" layoutX="47.0" layoutY="227.0" promptText="Varianta C" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="328.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXTextField fx:id="correctAnswer" layoutX="47.0" layoutY="286.0" promptText="Varinate corecte" />
+      <JFXButton layoutX="405.0" layoutY="212.0" mnemonicParsing="false" text="Browse" />
+      <JFXButton fx:id="saveButton" layoutX="37.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Save" />
+      <JFXButton fx:id="resetButton" layoutX="151.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Reset" />
+      <JFXButton fx:id="backButton" layoutX="511.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="68.0" style="-fx-background-color: crimson;" text="Back" textFill="WHITE" />
+   </children>
+</AnchorPane>

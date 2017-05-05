@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdministrationController">
    <children>
-      <JFXButton layoutX="41.0" layoutY="124.0" mnemonicParsing="false" style="-fx-background-color: royalblue;" text="Adauga o intrebare noua" />
+      <JFXButton fx:id="addQuestionButton" layoutX="41.0" layoutY="124.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-color: royalblue;" text="Adauga o intrebare noua" />
       <JFXButton layoutX="41.0" layoutY="169.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: yellow;" text="Editeaza intrebari" />
       <JFXButton layoutX="38.0" layoutY="211.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: cyan;" text="Genereaza Token" />
       <JFXButton layoutX="38.0" layoutY="253.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: pink;" text="Editeaza utilizatori" />

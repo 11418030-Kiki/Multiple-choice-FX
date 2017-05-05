@@ -14,13 +14,14 @@ import java.io.IOException;
 public class AdministrationController {
 
     @FXML private JFXButton backButton ;
+    @FXML private JFXButton addQuestionButton;
 
     void start(Stage stage)throws IOException {
         Parent home = FXMLLoader.load(getClass().getResource("/Administration.fxml"));
         Undecorator undecorator = new Undecorator(stage,(Region)home);
         undecorator.getStylesheets().add("skin/undecorator.css");
 
-        Scene homeScene = new Scene(undecorator);
+        Scene homeScene = new Scene(undecorator,620,430);
         homeScene.setFill(Color.TRANSPARENT);
         stage.setScene(homeScene);
         stage.show();
@@ -29,10 +30,18 @@ public class AdministrationController {
     @FXML private void handleButtonAction(ActionEvent event) throws IOException,InterruptedException{
         if(event.getSource() == backButton){
             Stage stage = (Stage) backButton.getScene().getWindow();
-           // stage.setTitle("Chestionare Auto categoria B");
             HomeController home = new HomeController();
             home.start(stage);
         }
+
+        else if (event.getSource() == addQuestionButton) {
+            Stage stage = (Stage) addQuestionButton.getScene().getWindow();
+            AddNewQuestionController add = new AddNewQuestionController();
+            add.start(stage);
+        }
+
     }
+
+
 
 }

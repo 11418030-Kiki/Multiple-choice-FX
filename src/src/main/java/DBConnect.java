@@ -179,10 +179,7 @@ public class DBConnect {
         try{
             String query = "SELECT DISTINCT " + exist + " FROM " + table + " WHERE " + whereInfo + " = " + id;
             resultSet = statemenet.executeQuery(query);
-            if(!resultSet.next())
-                return false;
-            else
-                return true;
+            return resultSet.next();
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -262,9 +259,7 @@ public class DBConnect {
         try{
             String query = "SELECT * FROM accounts WHERE email = '" + email + "' AND username = '" + username + "' ";
             resultSet = statemenet.executeQuery(query);
-            if(!resultSet.next())
-                return false;
-            else return true;
+            return resultSet.next();
         }catch (Exception ex){ex.printStackTrace();}
         return false;
     }
@@ -278,6 +273,16 @@ public class DBConnect {
             else return resultSet.getInt(1);
         }catch (Exception ex) {ex.printStackTrace();}
         return -1;
+    }
+
+    void insertQuestion(String question , String ansA, String ansB, String ansC, String correct ){
+        try {
+            String query = "INSERT INTO questions (intrebareText , varianta1Text , varianta2Text , varianta3Text  , raspunsCorect ) VALUES ( '" + question + "' , '" + ansA + "' , '" + ansB + "' , '" +ansC + "' , '"
+                    + correct + "' )" ;
+            statemenet.executeUpdate(query);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 }
