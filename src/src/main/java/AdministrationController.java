@@ -10,11 +10,23 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.UUID;
 
 public class AdministrationController {
 
     @FXML private JFXButton backButton ;
     @FXML private JFXButton addQuestionButton;
+    @FXML private JFXButton generateTokensButton;
+
+    private void generateTokens(){
+        DBConnect connect = new DBConnect();
+        for(int i = 0 ; i < 10 ; i ++) {
+            String uuid = UUID.randomUUID().toString();
+                connect.insertToken(uuid);
+            }
+        }
 
     void start(Stage stage)throws IOException {
         Parent home = FXMLLoader.load(getClass().getResource("/Administration.fxml"));
@@ -38,6 +50,9 @@ public class AdministrationController {
             Stage stage = (Stage) addQuestionButton.getScene().getWindow();
             AddNewQuestionController add = new AddNewQuestionController();
             add.start(stage);
+        }
+        else if (event.getSource() == generateTokensButton){
+            generateTokens();
         }
 
     }

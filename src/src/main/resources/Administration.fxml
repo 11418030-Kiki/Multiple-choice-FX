@@ -9,7 +9,7 @@
    <children>
       <JFXButton fx:id="addQuestionButton" layoutX="41.0" layoutY="124.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-color: royalblue;" text="Adauga o intrebare noua" />
       <JFXButton layoutX="41.0" layoutY="169.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: yellow;" text="Editeaza intrebari" />
-      <JFXButton layoutX="38.0" layoutY="211.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: cyan;" text="Genereaza Token" />
+      <JFXButton fx:id="generateTokensButton" layoutX="38.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: cyan;" text="Genereaza Token" />
       <JFXButton layoutX="38.0" layoutY="253.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: pink;" text="Editeaza utilizatori" />
       <JFXButton fx:id="backButton" layoutX="529.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="57.0" style="-fx-background-color: brown;" text="EXIT" textFill="WHITE">
          <font>

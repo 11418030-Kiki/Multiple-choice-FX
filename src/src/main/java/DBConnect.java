@@ -46,7 +46,7 @@ public class DBConnect {
 
     void getData(){
         try{
-            String query = "select * from TOKENS";
+            String query = "select * from TOKENS LIMIT 1";
             resultSet = statemenet.executeQuery(query);
             System.out.println("Records from Database");
             while(resultSet.next()){
@@ -298,4 +298,14 @@ public class DBConnect {
         }
     }
 
+    void insertToken(String token){
+        try{
+            PreparedStatement pre = getConnection().prepareStatement("INSERT INTO tokens VALUES (?)");
+            pre.setString(1,token);
+            pre.executeUpdate();
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
 }
