@@ -11,6 +11,9 @@ import javafx.scene.image.ImageView;
 
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.*;
 import java.sql.PreparedStatement;
 
@@ -275,11 +278,21 @@ public class DBConnect {
         return -1;
     }
 
-    void insertQuestion(String question , String ansA, String ansB, String ansC, String correct ){
+    void insertQuestion(String question , String ansA, String ansB, String ansC, String correct ,FileInputStream image, File imgFile){
         try {
-            String query = "INSERT INTO questions (intrebareText , varianta1Text , varianta2Text , varianta3Text  , raspunsCorect ) VALUES ( '" + question + "' , '" + ansA + "' , '" + ansB + "' , '" +ansC + "' , '"
-                    + correct + "' )" ;
-            statemenet.executeUpdate(query);
+            /*String query = "INSERT INTO questions (idQuestion , intrebareText , varianta1Text , varianta2Text , varianta3Text  , raspunsCorect , imagine ) VALUES (" + (getCountFromSQL("questions") + 1) + ", '" + question + "' , '" + ansA + "' , '" + ansB + "' , '" +ansC + "' , '"
+                    + correct + "'  )" ;*/
+            PreparedStatement pre = getConnection().prepareStatement("INSERT INTO questions (idQuestion,intrebareText,varianta1Text,varianta2Text,varianta3Text,raspunsCorect,imagine)" +
+                    " VALUES (?,?,?,?,?,?,?)");
+            pre.setInt(1,(getCountFromSQL("questions") + 1));
+            pre.setString(2,question);
+            pre.setString(3,ansA);
+            pre.setString(4,ansB);
+            pre.setString(5,ansC);
+            pre.setString(6,correct);
+            pre.setBinaryStream(7,(InputStream)image,(int)imgFile.length());
+
+            pre.executeUpdate();
         }catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -3,14 +3,18 @@ import com.jfoenix.controls.*;
 import insidefx.undecorator.Undecorator;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -33,11 +37,13 @@ public class LoginController extends Application{
 
     static int idAccount_Current;
 
+
+
     @Override
     public void start(final Stage stage)throws IOException {
         Parent home = FXMLLoader.load(getClass().getResource("/Login.fxml"));
 
-        Undecorator undecorator = new Undecorator(stage, (Region)home);
+        Undecorator undecorator = new Undecorator(stage, (Region) home);
         undecorator.getStylesheets().add("skin/undecorator.css");
 
         //Scene homeScene = new Scene(home, 600, 400);
@@ -47,6 +53,8 @@ public class LoginController extends Application{
 
         stage.setScene(homeScene);
         stage.show();
+
+
     }
 
     @FXML private void handleButtonAction(ActionEvent event) throws IOException{
@@ -82,4 +90,20 @@ public class LoginController extends Application{
             fpc.start(stage);
         }
     }
+
+
+    @FXML private void onEnter(ActionEvent event)throws IOException{
+        DBConnect connect = new DBConnect();
+        if (connect.verifyAccount(username.getText(), password.getText())){
+            Stage stage = (Stage)signIn.getScene().getWindow();
+            // stage.setTitle("Chestionare Auto categoria B");
+            HomeController home = new HomeController();
+            home.start(stage);
+        }
+        else{
+            textLabel.setText("Datele introduse sunt invalide");
+            forgotPasswordButton.setVisible(true);
+        }
+    }
+
 }
