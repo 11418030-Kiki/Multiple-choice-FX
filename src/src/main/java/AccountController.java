@@ -18,6 +18,10 @@ import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 
 public class AccountController {
 
@@ -28,6 +32,11 @@ public class AccountController {
     @FXML private JFXButton backButton;
     @FXML private JFXButton changePasswordButton;
     @FXML private JFXButton changeEmailButton;
+    @FXML private JFXButton resetLearningButton;
+
+    private ArrayList<Integer> questionsList = new ArrayList<>();
+    private LinkedList<Integer> questionsLinkedList = new LinkedList<>();
+
 
     void start(Stage stage)throws IOException {
         Parent home = FXMLLoader.load(getClass().getResource("/Account.fxml"));
@@ -85,6 +94,33 @@ public class AccountController {
            // stage.setTitle("Chestionare Auto categoria B - Schimba Email");
             EmailChangeController emailChange = new EmailChangeController();
             emailChange.start(stage);
+        }
+        else if(event.getSource() == resetLearningButton){
+            DBConnect connect = new DBConnect();
+            for (int i = 1; i <= connect.getCountFromSQL("questions"); ++i) {
+                questionsList.add(i);
+            }
+
+            for (int i = 1; i <= connect.getCountFromSQL("questions"); ++i) {
+                questionsList.add(i);
+            }
+
+            Collections.shuffle(questionsList);
+
+            questionsLinkedList.addAll(questionsList);
+
+
+            Connection conn;
+            try{
+                conn = DBConnect.getConnection();
+                conn.setAutoCommit(false);
+
+                DBConnect.writeJavaObject(conn,questionsLinkedList);
+                conn.commit();
+
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
         }
 
     }

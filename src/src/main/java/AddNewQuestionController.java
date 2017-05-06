@@ -37,9 +37,9 @@ public class AddNewQuestionController {
 
     private Stage stageQues;
 
-    final FileChooser fileChooser = new FileChooser();
-    FileInputStream fin;
-    File file;
+    private final FileChooser fileChooser = new FileChooser();
+    private FileInputStream fin;
+    private File file;
 
 
     void start(Stage stage)throws IOException {
@@ -67,7 +67,6 @@ public class AddNewQuestionController {
             answerC.setText("");
             correctAnswer.setText("");
             imageView.setImage(null);
-            file.delete();
             fin.close();
 
         }
