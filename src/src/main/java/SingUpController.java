@@ -34,8 +34,7 @@ public class SingUpController {
     private LinkedList<Integer> questionsLinkedList = new LinkedList<>();
 
 
-    @FXML
-    public void handleBackAction(ActionEvent event) throws IOException {
+    @FXML public void handleBackAction(ActionEvent event) throws IOException {
         if (event.getSource() == backButton) {
             Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
             Scene scene = new Scene(root, 600, 400);
@@ -45,8 +44,7 @@ public class SingUpController {
         }
     }
 
-    @FXML
-    private void handleSingUpButton(ActionEvent event) throws IOException {
+    @FXML private void handleSingUpButton(ActionEvent event) throws IOException {
         if (event.getSource() == signUpButton) {
             DBConnect connect = new DBConnect();
             if (connect.verifyUsernameAndPassword(usernameText.getText(), emailText.getText())) {

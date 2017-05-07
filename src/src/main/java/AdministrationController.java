@@ -19,6 +19,7 @@ public class AdministrationController {
     @FXML private JFXButton backButton ;
     @FXML private JFXButton addQuestionButton;
     @FXML private JFXButton generateTokensButton;
+    @FXML private JFXButton editQuestionsButton;
 
     private void generateTokens(){
         DBConnect connect = new DBConnect();
@@ -54,6 +55,12 @@ public class AdministrationController {
         else if (event.getSource() == generateTokensButton){
             generateTokens();
         }
+        else if(event.getSource() == editQuestionsButton){
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            EditQuestionController editQuestionController = new EditQuestionController();
+            editQuestionController.start(stage);
+        }
+
 
     }
 

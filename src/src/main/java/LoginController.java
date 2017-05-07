@@ -61,7 +61,6 @@ public class LoginController extends Application{
 
         if(event.getSource()==useToken) {
             Stage stage=(Stage) useToken.getScene().getWindow();
-            //stage.setTitle("Chestionare Auto categoria B");
             UseTokenController useTokenController = new UseTokenController();
             useTokenController.start(stage);
         }
@@ -74,7 +73,6 @@ public class LoginController extends Application{
             DBConnect connect = new DBConnect();
             if (connect.verifyAccount(username.getText(), password.getText())){
                 Stage stage = (Stage)signIn.getScene().getWindow();
-               // stage.setTitle("Chestionare Auto categoria B");
                 HomeController home = new HomeController();
                 home.start(stage);
             }
@@ -85,7 +83,6 @@ public class LoginController extends Application{
         }
         if(event.getSource() == forgotPasswordButton){
             Stage stage = (Stage) forgotPasswordButton.getScene().getWindow();
-            //stage.setTitle("Chestionare Auto categoria B");
             ForgotPasswordController fpc = new ForgotPasswordController();
             fpc.start(stage);
         }

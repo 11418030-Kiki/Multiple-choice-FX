@@ -18,6 +18,8 @@ import java.net.URL;
 public class Main extends Application {
 
 
+
+
     @Override
     public void start(final Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
@@ -38,6 +40,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+
         System.out.println("Starting the aplication...");
         DBConnect connect = new DBConnect();
         connect.getData();

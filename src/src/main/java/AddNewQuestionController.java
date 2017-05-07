@@ -53,7 +53,7 @@ public class AddNewQuestionController {
         stageQues = stage;
     }
 
-    @FXML private void handleButtonAction(ActionEvent event) throws IOException,InterruptedException {
+    @FXML public void handleButtonAction(ActionEvent event) throws IOException,InterruptedException {
         if (event.getSource() == backButton) {
             Stage stage = (Stage) backButton.getScene().getWindow();
             AdministrationController administration = new AdministrationController();
@@ -67,7 +67,6 @@ public class AddNewQuestionController {
             answerC.setText("");
             correctAnswer.setText("");
             imageView.setImage(null);
-            fin.close();
 
         }
         else if(event.getSource() == saveButton){

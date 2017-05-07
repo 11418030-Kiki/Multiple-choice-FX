@@ -60,10 +60,7 @@ public class DBConnect {
         try{
             String query = "Select * from TOKENS where idTOKENS = '" + token + "'";
             resultSet = statemenet.executeQuery(query);
-            if(!resultSet.next())
-                return false;
-            else
-                return true;
+            return resultSet.next();
         }catch(Exception ex){ex.printStackTrace();}
         return false;
     }
@@ -79,11 +76,7 @@ public class DBConnect {
         try{
             String query = "SELECT * FROM ACCOUNTS WHERE USERNAME = '"+username+"' OR EMAIL = '"+email+"'";
             resultSet = statemenet.executeQuery(query);
-            if(!resultSet.next()) {
-                return true;
-            }
-            else
-                return false;
+            return !resultSet.next();
         }catch(Exception ex){ex.printStackTrace();}
         return false;
     }
@@ -308,4 +301,44 @@ public class DBConnect {
             ex.printStackTrace();
         }
     }
+
+    void editAQuestion(String intrebareText,String varianta1,String varianta2,String varianta3,String raspunsCorect,String idQuiz,Object ... args){
+
+        try{
+
+            if(args == null) {
+                PreparedStatement pre = getConnection().prepareStatement("UPDATE questions SET intrebareText = ? , varianta1Text = ?" +
+                        ", varianta2Text = ? , varianta3Text = ? , raspunsCorect = ? WHERE idQuestion = ?");
+                pre.setString(1,intrebareText);
+                pre.setString(2,varianta1);
+                pre.setString(3,varianta2);
+                pre.setString(4,varianta3);
+                pre.setString(5,raspunsCorect);
+                pre.setInt(6,Integer.parseInt(idQuiz));
+                pre.executeUpdate();
+            }
+            else if(args != null){
+                PreparedStatement pre = getConnection().prepareStatement("UPDATE questions SET intrebareText = ? , varianta1Text = ?" +
+                        ", varianta2Text = ? , varianta3Text = ? , raspunsCorect = ? ,imagine = ? WHERE idQuestion = ?");
+                pre.setString(1,intrebareText);
+                pre.setString(2,varianta1);
+                pre.setString(3,varianta2);
+                pre.setString(4,varianta3);
+                pre.setString(5,raspunsCorect);
+                FileInputStream image  = (FileInputStream)args[0];
+                File imgFile = (File)args[1];
+
+
+                pre.setBinaryStream(6,(InputStream)image,(int)imgFile.length());
+                pre.setInt(7,Integer.parseInt(idQuiz));
+
+                // pre.setInt(7,Integer.parseInt(idQuiz));
+                pre.executeUpdate();
+            }
+
+        }catch (Exception ex){ex.printStackTrace();}
+
+    }
+
+
 }

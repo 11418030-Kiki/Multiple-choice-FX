@@ -79,19 +79,16 @@ public class AccountController {
 
         if(event.getSource() == backButton){
             Stage stage = (Stage) backButton.getScene().getWindow();
-            //stage.setTitle("Chestionare Auto categoria B");
             HomeController home = new HomeController();
             home.start(stage);
         }
         else if (event.getSource() == changePasswordButton){
             Stage stage = (Stage)changePasswordButton.getScene().getWindow();
-            //stage.setTitle("Chestionare Auto categoria B - Schimba Parola");
             PasswordChangeController passchange = new PasswordChangeController();
             passchange.start(stage);
         }
         else if(event.getSource() == changeEmailButton){
             Stage stage = (Stage)changeEmailButton.getScene().getWindow();
-           // stage.setTitle("Chestionare Auto categoria B - Schimba Email");
             EmailChangeController emailChange = new EmailChangeController();
             emailChange.start(stage);
         }
