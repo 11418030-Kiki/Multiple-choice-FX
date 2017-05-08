@@ -127,11 +127,7 @@ public class DBConnect {
         try{
             String query = "SELECT * FROM questions WHERE idQuestion = "+idQuiz+" and raspunsCorect = '" +answer+ "'";
             resultSet = statemenet.executeQuery(query);
-            if(!resultSet.next())
-                return false;
-            else{
-                return true;
-            }
+            return resultSet.next();
         }catch(Exception ex){ex.printStackTrace();}
         return false;
     }
@@ -162,26 +158,6 @@ public class DBConnect {
         return -1;
     }
 
-    public boolean existData(String exist,String table,String column,Integer id){
-        String whereInfo = "";
-
-        if(table.equals("accounts"))
-            whereInfo = "idAccount";
-        else if (table.equals("questions"))
-            whereInfo = "idQuestion";
-        else if (table.equals("tokens"))
-            whereInfo = "idTokens";
-
-        try{
-            String query = "SELECT DISTINCT " + exist + " FROM " + table + " WHERE " + whereInfo + " = " + id;
-            resultSet = statemenet.executeQuery(query);
-            return resultSet.next();
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return false;
-    }
-
     void getImageFromSQL(int idQuiz,ImageView imageView){
         try{
             byte[] fileBytes;
@@ -198,8 +174,8 @@ public class DBConnect {
         }
     }
 
-    static long writeJavaObject(Connection connect, Object object) throws Exception{
-        String className = object.getClass().getName();
+    static void writeJavaObject(Connection connect, Object object) throws Exception{
+        //String className = object.getClass().getName();
         PreparedStatement pstmt = connect.prepareStatement(WRITE_OBJECT_SQL,Statement.RETURN_GENERATED_KEYS);
 
         pstmt.setObject(1,object);
@@ -207,14 +183,12 @@ public class DBConnect {
         pstmt.executeUpdate();
 
         ResultSet rs = pstmt.getGeneratedKeys();
-        int id = -1;
         if(rs.next()){
-            id = rs.getInt(1);
+            rs.getInt(1);
         }
 
         rs.close();
         pstmt.close();
-        return id;
     }
 
     static Object readJavaObject(Connection conn,int id)throws Exception{
@@ -223,7 +197,7 @@ public class DBConnect {
         ResultSet rs = pstmt.executeQuery();
         rs.next();
         Object object = rs.getObject(1);
-        String className = object.getClass().getName();
+        //String className = object.getClass().getName();
 
         rs.close();
         pstmt.close();
@@ -271,21 +245,38 @@ public class DBConnect {
         return -1;
     }
 
-    void insertQuestion(String question , String ansA, String ansB, String ansC, String correct ,FileInputStream image, File imgFile){
+    void insertQuestion(String question , String ansA, String ansB, String ansC, String correct ,Object ... args){
         try {
-            /*String query = "INSERT INTO questions (idQuestion , intrebareText , varianta1Text , varianta2Text , varianta3Text  , raspunsCorect , imagine ) VALUES (" + (getCountFromSQL("questions") + 1) + ", '" + question + "' , '" + ansA + "' , '" + ansB + "' , '" +ansC + "' , '"
-                    + correct + "'  )" ;*/
-            PreparedStatement pre = getConnection().prepareStatement("INSERT INTO questions (idQuestion,intrebareText,varianta1Text,varianta2Text,varianta3Text,raspunsCorect,imagine)" +
-                    " VALUES (?,?,?,?,?,?,?)");
-            pre.setInt(1,(getCountFromSQL("questions") + 1));
-            pre.setString(2,question);
-            pre.setString(3,ansA);
-            pre.setString(4,ansB);
-            pre.setString(5,ansC);
-            pre.setString(6,correct);
-            pre.setBinaryStream(7,(InputStream)image,(int)imgFile.length());
+            if(args != null) {
+                PreparedStatement pre = getConnection().prepareStatement("INSERT INTO questions (idQuestion,intrebareText,varianta1Text,varianta2Text,varianta3Text,raspunsCorect,imagine)" +
+                        " VALUES (?,?,?,?,?,?,?)");
+                pre.setInt(1, (getCountFromSQL("questions") + 1));
+                pre.setString(2, question);
+                pre.setString(3, ansA);
+                pre.setString(4, ansB);
+                pre.setString(5, ansC);
+                pre.setString(6, correct);
 
-            pre.executeUpdate();
+                FileInputStream image  = (FileInputStream)args[0];
+                File imgFile = (File)args[1];
+
+                pre.setBinaryStream(7,(InputStream)image,(int)imgFile.length());
+
+                pre.executeUpdate();
+            }
+            else{
+                PreparedStatement pre = getConnection().prepareStatement("INSERT INTO questions (idQuestion,intrebareText,varianta1Text,varianta2Text,varianta3Text,raspunsCorect) VALUES" +
+                        "(?,?,?,?,?,?)");
+                pre.setInt(1, (getCountFromSQL("questions") + 1));
+                pre.setString(2, question);
+                pre.setString(3, ansA);
+                pre.setString(4, ansB);
+                pre.setString(5, ansC);
+                pre.setString(6, correct);
+                pre.executeUpdate();
+
+
+            }
         }catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -317,7 +308,7 @@ public class DBConnect {
                 pre.setInt(6,Integer.parseInt(idQuiz));
                 pre.executeUpdate();
             }
-            else if(args != null){
+            else {
                 PreparedStatement pre = getConnection().prepareStatement("UPDATE questions SET intrebareText = ? , varianta1Text = ?" +
                         ", varianta2Text = ? , varianta3Text = ? , raspunsCorect = ? ,imagine = ? WHERE idQuestion = ?");
                 pre.setString(1,intrebareText);
@@ -332,7 +323,6 @@ public class DBConnect {
                 pre.setBinaryStream(6,(InputStream)image,(int)imgFile.length());
                 pre.setInt(7,Integer.parseInt(idQuiz));
 
-                // pre.setInt(7,Integer.parseInt(idQuiz));
                 pre.executeUpdate();
             }
 

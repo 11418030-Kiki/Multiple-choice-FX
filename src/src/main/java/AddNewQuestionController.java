@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 
 public class AddNewQuestionController {
@@ -69,16 +68,19 @@ public class AddNewQuestionController {
             imageView.setImage(null);
 
         }
-        else if(event.getSource() == saveButton){
+        else if (event.getSource() == saveButton){
             if(!questionField.getText().trim().isEmpty() && !answerA.getText().trim().isEmpty() &&
                     !answerB.getText().trim().isEmpty() && !answerC.getText().trim().isEmpty() &&
-                    !correctAnswer.getText().trim().isEmpty() && imageView.getImage() != null){
+                    !correctAnswer.getText().trim().isEmpty()){
                 DBConnect connect = new DBConnect();
-                connect.insertQuestion(questionField.getText(),answerA.getText(),answerB.getText(),answerC.getText(),
-                correctAnswer.getText(),fin,file);
+                if(imageView.getImage() != null)
+                    connect.insertQuestion(questionField.getText(),answerA.getText(),answerB.getText(),answerC.getText(), correctAnswer.getText(),fin,file);
+                else
+                    connect.insertQuestion(questionField.getText(),answerA.getText(),answerB.getText(),answerC.getText(), correctAnswer.getText(),null);
+
             }
         }
-        else if(event.getSource() == browseButton){
+        else if (event.getSource() == browseButton){
             try{
 
                 file = fileChooser.showOpenDialog(stageQues);
@@ -92,8 +94,6 @@ public class AddNewQuestionController {
                     fin = new FileInputStream(file);
 
                 }
-
-
 
             }catch(NullPointerException ex){
                 System.out.println("Formatul imaginii nu este corespunzator !");

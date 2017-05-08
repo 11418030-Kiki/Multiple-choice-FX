@@ -55,7 +55,6 @@ public class PasswordChangeController {
 
         if(event.getSource() == backButton){
             Stage stage = (Stage) backButton.getScene().getWindow();
-            //stage.setTitle("Chestionare Auto categoria B");
             AccountController accountController = new AccountController();
             accountController.start(stage);
         }

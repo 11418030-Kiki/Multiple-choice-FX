@@ -10,8 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.UUID;
 
 public class AdministrationController {
@@ -63,7 +61,5 @@ public class AdministrationController {
 
 
     }
-
-
 
 }

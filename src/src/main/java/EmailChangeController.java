@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class EmailChangeController {
+
     @FXML private JFXTextField actualMailText;
     @FXML private JFXTextField newMailText;
     @FXML private JFXButton changeMailButton;
@@ -42,7 +43,6 @@ public class EmailChangeController {
     @FXML private void handleButtonAction(ActionEvent event) throws IOException ,InterruptedException{
         if(event.getSource() == backButton){
             Stage stage = (Stage) backButton.getScene().getWindow();
-            //stage.setTitle("Chestionare Auto categoria B");
             AccountController accountController = new AccountController();
             accountController.start(stage);
         }

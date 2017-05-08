@@ -8,9 +8,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class SendMailTLS {
+class SendMailTLS {
 
-    public static void sendAnEmail(String destination,String usernameDB,String passwordDB) {
+    static void sendAnEmail(String destination, String usernameDB, String passwordDB) {
 
         final String username = "chestionarul.tau.auto@gmail.com";
         final String password = "chestionar123";

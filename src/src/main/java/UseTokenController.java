@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -51,7 +50,6 @@ public class UseTokenController {
             Parent root = FXMLLoader.load(getClass().getResource("/SignUp.fxml"));
             Scene scene = new Scene(root,600,400);
             Stage stage=(Stage) useToken.getScene().getWindow();
-            //stage.setTitle("Chestionare Auto categoria B");
             stage.setScene(scene);
             stage.show();
         }

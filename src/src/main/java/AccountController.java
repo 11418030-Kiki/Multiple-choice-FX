@@ -10,14 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sun.rmi.runtime.Log;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -107,8 +103,8 @@ public class AccountController {
             questionsLinkedList.addAll(questionsList);
 
 
-            Connection conn;
             try{
+                Connection conn;
                 conn = DBConnect.getConnection();
                 conn.setAutoCommit(false);
 

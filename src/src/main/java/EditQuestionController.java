@@ -1,16 +1,13 @@
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
 import insidefx.undecorator.Undecorator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -20,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -77,8 +73,7 @@ public class EditQuestionController {
 
     @FXML private void initialize() {
         try {
-            DBConnect connect = new DBConnect();
-            Connection conn = connect.getConnection();
+            Connection conn = DBConnect.getConnection();
             data = FXCollections.observableArrayList();
             ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM questions");
             while(rs.next()){
@@ -150,7 +145,7 @@ public class EditQuestionController {
                     fin = new FileInputStream(file);
 
                 }
-            }catch(NullPointerException ex){}
+            }catch(NullPointerException ignored){}
         }
         if(event.getSource() == saveButton){
            /* if(!intrebareTextField.getText().trim().isEmpty() && !answerATextField.getText().trim().isEmpty() &&

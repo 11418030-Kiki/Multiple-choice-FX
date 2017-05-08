@@ -48,7 +48,6 @@ public class ForgotPasswordController {
     @FXML private void handleButtonAction(ActionEvent event) throws IOException ,InterruptedException{
         if(event.getSource() == backButton){
             Stage stage = (Stage) backButton.getScene().getWindow();
-            //stage.setTitle("Chestionare Auto categoria B");
             LoginController home = new LoginController();
             home.start(stage);
         }

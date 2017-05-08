@@ -3,7 +3,7 @@ import javafx.beans.property.StringProperty;
 
 public class QuestionDetails {
 
-    public String getIdQuiz() {
+    String getIdQuiz() {
         return idQuiz.get();
     }
 

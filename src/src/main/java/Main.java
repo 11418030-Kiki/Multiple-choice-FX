@@ -27,8 +27,6 @@ public class Main extends Application {
         Undecorator undecorator = new Undecorator(primaryStage, (Region)root);
         undecorator.getStylesheets().add("skin/undecorator.css");
 
-        //primaryStage.setTitle("Chestionare Auto categoria B");
-        //Scene scene = new Scene(root,600,400);
         Scene scene = new Scene(undecorator);
         scene.setFill(Color.TRANSPARENT);
 

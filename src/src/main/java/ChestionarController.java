@@ -1,6 +1,5 @@
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXRadioButton;
 import insidefx.undecorator.Undecorator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -27,7 +26,6 @@ import static java.lang.System.exit;
 
 public class ChestionarController {
 
-    @FXML private Label timeLabel;
     @FXML private Text timpText;
     @FXML private JFXButton sendAnswer;
     @FXML private JFXButton exitButton;
@@ -46,11 +44,9 @@ public class ChestionarController {
     private boolean isStarted = false;
     private boolean questionsAreOver = false;
 
-    //private String answer  = "";
     private Integer correctAnswers = 0;
     private Integer wrongAnswers = 0;
     private int i = -1;
-    private int j = -1;
 
     private StringBuilder answer = new StringBuilder();
 
@@ -219,7 +215,6 @@ public class ChestionarController {
                 Parent result = FXMLLoader.load(getClass().getResource("/Congratulations.fxml"));
                 Scene scene = new Scene(result,600,400);
                 Stage stage=(Stage) sendAnswer.getScene().getWindow();
-                //stage.setTitle("Chestionare Auto categoria B");
                 stage.setScene(scene);
                 stage.show();
 
@@ -247,7 +242,6 @@ public class ChestionarController {
                 if(response == ButtonType.OK){
                     try {
                         Stage stage = (Stage) exitButton.getScene().getWindow();
-                        //stage.setTitle("Chestionare Auto categoria B");
                         HomeController home = new HomeController();
                         home.start(stage);
                     }catch (IOException ex){ ex.printStackTrace(); }
