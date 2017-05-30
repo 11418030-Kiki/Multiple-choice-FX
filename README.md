@@ -1,3 +1,3 @@
-# ProjectBarosFX
+# Multiple choice test application
 
-Cel mai adevarat proiect !
+A choice test application written in Java using the JavaFX graphics interface and MySQL database.
