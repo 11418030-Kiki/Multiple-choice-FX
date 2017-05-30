@@ -17,7 +17,6 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -34,16 +33,10 @@ public class HomeController {
     @FXML private JFXButton adminButton;
     @FXML private JFXToggleButton musicToggle;
 
+    private static Media m = new Media("file:///" + System.getProperty("user.dir").replace('\\', '/') + "/" + "src/src/main/resources/mediaResources/nfs_home.mp3");
+    private static MediaPlayer player = new MediaPlayer(m);
 
-    private static boolean isStarted = false;
 
-
-    private void playMusic(String song) {
-        final URL resource = getClass().getResource("" + "mediaResources/" + song + ".mp3");
-        final Media media = new Media(resource.toString());
-        final MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
-    }
 
 
     @FXML
@@ -51,12 +44,13 @@ public class HomeController {
 
         DBConnect connect = new DBConnect();
 
+
         if (Integer.parseInt(connect.getInfoFromColumn("admin", LoginController.idAccount_Current)) != 0) {
             adminButton.setVisible(true);
         }
 
-        firstName.setText(connect.getInfoFromColumn("firstname", LoginController.idAccount_Current));
-        lastName.setText(connect.getInfoFromColumn("lastname", LoginController.idAccount_Current));
+        firstName.setText("Prenume: "+connect.getInfoFromColumn("firstname", LoginController.idAccount_Current));
+        lastName.setText("Nume: " +connect.getInfoFromColumn("lastname", LoginController.idAccount_Current));
         LocalDate today = LocalDate.now();
         LocalTime todayTime = LocalTime.now();
         currentDate.setValue(today);
@@ -67,15 +61,18 @@ public class HomeController {
         timePicker.setEditable(false);
         timePicker.setMouseTransparent(true);
 
+        if(Main.musicIsStarted)
+            musicToggle.setSelected(true);
+
+        musicToggle.setUnToggleColor(Paint.valueOf("crimson"));
+        musicToggle.setToggleColor(Paint.valueOf("teal"));
 
     }
 
     public void start(final Stage stage) throws IOException {
 
 
-        final URL resource = getClass().getResource("" + "mediaResources/nfs_home.mp3");
-        final Media media = new Media(resource.toString());
-        final MediaPlayer mediaPlayer = new MediaPlayer(media);
+
 
         Parent home = FXMLLoader.load(getClass().getResource("/Home.fxml"));
 
@@ -87,13 +84,11 @@ public class HomeController {
 
         homeScene.setFill(Color.TRANSPARENT);
 
+        stage.setResizable(false);
         stage.setScene(homeScene);
         stage.show();
 
-        if(!isStarted) {
-            //mediaPlayer.play();
-            isStarted = true;
-        }
+
     }
 
     @FXML
@@ -118,6 +113,19 @@ public class HomeController {
             Stage stage = (Stage) adminButton.getScene().getWindow();
             AdministrationController administrationController = new AdministrationController();
             administrationController.start(stage);
+        } else if (event.getSource() == musicToggle){
+            if(!Main.musicIsStarted && musicToggle.isSelected()) {
+
+                Main.musicIsStarted = true;
+                player.play();
+
+
+            }
+            if(!musicToggle.isSelected() && Main.musicIsStarted){
+
+                player.stop();
+                Main.musicIsStarted = false;
+            }
         }
     }
 }

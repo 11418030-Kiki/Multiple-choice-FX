@@ -25,6 +25,7 @@ public class AdministrationController {
             String uuid = UUID.randomUUID().toString();
                 connect.insertToken(uuid);
             }
+        System.out.println("10 Token au fost generate cu succes in baza de date !");
         }
 
     void start(Stage stage)throws IOException {

@@ -47,11 +47,9 @@ public class UseTokenController {
         if(connect.findToken(imputToken)){
             validToken = imputToken;
             MessageText.setText("Your token is correct.");
-            Parent root = FXMLLoader.load(getClass().getResource("/SignUp.fxml"));
-            Scene scene = new Scene(root,600,400);
-            Stage stage=(Stage) useToken.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+            Stage stage = (Stage) useToken.getScene().getWindow();
+            SignUpController signUpController = new SignUpController();
+            signUpController.start(stage);
         }
         if(event.getSource()==backButton) {
             Stage stage = (Stage) backButton.getScene().getWindow();

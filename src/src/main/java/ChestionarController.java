@@ -114,8 +114,6 @@ public class ChestionarController {
     private void generateQuestions(){
         //Creaza o lista cu idQuiz-urile din baza de date, iar apoi face un
         //shuffle pentru a le amesteca astfel avem chestionare diferite mereu
-        //O chestie buna ar fi ca numarul 100 sa fie inlocuit cu count intrebari
-        //Din sql.
         DBConnect connect = new DBConnect();
         if(list.isEmpty()) {
             for (int i = 1; i <= connect.getCountFromSQL("questions"); i++) {

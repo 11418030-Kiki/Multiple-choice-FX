@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
-      <JFXButton fx:id="incepeChestionar" layoutX="14.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="260.0" style="-fx-background-color: springgreen;" text="Incepe un chestionar" textOverrun="CLIP" />
-      <JFXButton fx:id="logoutButton" layoutX="501.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: pink;" text="Logout" />
-      <JFXButton fx:id="mediuInvatareButton" layoutX="324.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="260.0" style="-fx-background-color: royalblue;" text="Mediu de invatare" />
+      <JFXButton fx:id="incepeChestionar" layoutX="14.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="260.0" style="-fx-background-color: Bisque;" text="Incepe un chestionar" textOverrun="CLIP" />
+      <JFXButton fx:id="logoutButton" layoutX="501.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: crimson;" text="Logout" textFill="WHITE" />
+      <JFXButton fx:id="mediuInvatareButton" layoutX="324.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="260.0" style="-fx-background-color: royalblue;" text="Mediu de invatare" textFill="WHITE" />
       <Label fx:id="firstName" layoutX="14.0" layoutY="55.0" text="Label" />
       <Label fx:id="lastName" layoutX="14.0" layoutY="84.0" text="Label" />
       <JFXDatePicker fx:id="currentDate" layoutX="456.0" layoutY="146.0" prefHeight="30.0" prefWidth="130.0" />

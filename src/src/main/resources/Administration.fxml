@@ -7,16 +7,12 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdministrationController">
    <children>
-      <JFXButton fx:id="addQuestionButton" layoutX="41.0" layoutY="124.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-color: royalblue;" text="Adauga o intrebare noua" />
-      <JFXButton fx:id="editQuestionsButton" layoutX="41.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: yellow;" text="Editeaza intrebari" />
+      <JFXButton fx:id="addQuestionButton" layoutX="38.0" layoutY="124.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: royalblue;" text="Adauga o intrebare noua" textFill="WHITE" />
+      <JFXButton fx:id="editQuestionsButton" layoutX="38.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: yellow;" text="Editeaza intrebari" />
       <JFXButton fx:id="generateTokensButton" layoutX="38.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: cyan;" text="Genereaza Token" />
       <JFXButton layoutX="38.0" layoutY="253.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="186.0" style="-fx-background-color: pink;" text="Editeaza utilizatori" />
-      <JFXButton fx:id="backButton" layoutX="529.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="57.0" style="-fx-background-color: brown;" text="EXIT" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </JFXButton>
-      <Label alignment="CENTER" layoutX="410.0" layoutY="24.0" prefHeight="19.0" prefWidth="163.0" text="ADMINISTRATION MODE">
+      <JFXButton fx:id="backButton" layoutX="514.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="72.0" style="-fx-background-color: crimson;" text="EXIT" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="357.0" layoutY="14.0" prefHeight="42.0" prefWidth="186.0" style="-fx-background-color: teal;" text="ADMINISTRATION MODE" textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font>

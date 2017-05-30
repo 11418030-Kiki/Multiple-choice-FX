@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AccountController">
-      <JFXButton fx:id="changePasswordButton" layoutX="62.0" layoutY="157.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="135.0" style="-fx-background-color: chartreuse;" text="Schimba Parola" />
-      <JFXButton fx:id="changeEmailButton" layoutX="62.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-color: crimson;" text="Schimba Email-ul" textFill="WHITE" />
+      <JFXButton fx:id="changePasswordButton" layoutX="33.0" layoutY="157.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="190.0" style="-fx-background-color: chartreuse;" text="Schimba Parola" />
+      <JFXButton fx:id="changeEmailButton" layoutX="32.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="190.0" style="-fx-background-color: crimson;" text="Schimba Email-ul" textFill="WHITE" />
       <PieChart fx:id="pieChart" labelLineLength="5.0" labelsVisible="false" layoutX="224.0" layoutY="11.0" prefHeight="376.0" prefWidth="364.0" />
       <JFXButton fx:id="backButton" layoutX="105.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-color: pink;" text="Back" />
       <Label fx:id="firstNameLabel" layoutX="18.0" layoutY="51.0" prefHeight="21.0" prefWidth="204.0" text="Prenume:" />

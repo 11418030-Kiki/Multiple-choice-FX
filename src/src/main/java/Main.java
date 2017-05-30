@@ -18,20 +18,19 @@ import java.net.URL;
 public class Main extends Application {
 
 
+    public static boolean musicIsStarted = false;
+
+
 
 
     @Override
     public void start(final Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
-
         Undecorator undecorator = new Undecorator(primaryStage, (Region)root);
         undecorator.getStylesheets().add("skin/undecorator.css");
-
         Scene scene = new Scene(undecorator);
         scene.setFill(Color.TRANSPARENT);
-
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();

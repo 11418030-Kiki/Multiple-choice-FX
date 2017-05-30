@@ -2,11 +2,14 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
+import insidefx.undecorator.Undecorator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
-public class SingUpController {
+public class SignUpController {
 
     @FXML private JFXButton backButton;
     @FXML private JFXButton signUpButton;
@@ -31,17 +34,29 @@ public class SingUpController {
     private LinkedList<Integer> questionsLinkedList = new LinkedList<>();
 
 
+    public void start(final Stage stage) throws IOException {
+        Parent home = FXMLLoader.load(getClass().getResource("/SignUp.fxml"));
+
+        Undecorator undecorator = new Undecorator(stage, (Region) home);
+        undecorator.getStylesheets().add("skin/undecorator.css");
+
+        Scene homeScene = new Scene(undecorator);
+        homeScene.setFill(Color.TRANSPARENT);
+
+        stage.setScene(homeScene);
+        stage.show();
+    }
+
+
     @FXML public void handleBackAction(ActionEvent event) throws IOException {
         if (event.getSource() == backButton) {
-            Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
-            Scene scene = new Scene(root, 600, 400);
             Stage stage = (Stage) backButton.getScene().getWindow();
-            //stage.setTitle("Chestionare Auto categoria B");
-            stage.setScene(scene);
+            LoginController loginController = new LoginController();
+            loginController.start(stage);
         }
     }
 
-    @FXML private void handleSingUpButton(ActionEvent event) throws IOException {
+    @FXML private void handleSignUpButton(ActionEvent event) throws IOException {
         if (event.getSource() == signUpButton) {
             DBConnect connect = new DBConnect();
             if (connect.verifyUsernameAndPassword(usernameText.getText(), emailText.getText())) {
@@ -64,7 +79,8 @@ public class SingUpController {
                         Collections.shuffle(questionsList);
 
                         questionsLinkedList.addAll(questionsList);
-
+                        /* Am creat un LinkedList cu intrebarile pentru mediul de invatare al accountului creat si il serializam in baza de date pentru a deserializa obiectul
+                        * Linked List la fiecare logare in account.*/
                         LoginController.idAccount_Current = connect.getCountFromSQL("accounts");
 
                         Connection conn;
@@ -82,12 +98,9 @@ public class SingUpController {
 
                         System.out.println("Your account has been created.");
 
-                        Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
-                        Scene scene = new Scene(root,600,400);
-                        Stage stage=(Stage) backButton.getScene().getWindow();
-                        stage.setTitle("Chestionare Auto categoria B");
-                        stage.setScene(scene);
-                        stage.show();
+                        Stage stage = (Stage) backButton.getScene().getWindow();
+                        LoginController loginController = new LoginController();
+                        loginController.start(stage);
 
                     } else {
                         System.out.println("Termenii nu sunt acceptati");

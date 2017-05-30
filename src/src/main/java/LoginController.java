@@ -11,10 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import static java.lang.System.exit;
 
@@ -31,7 +35,6 @@ public class LoginController extends Application {
 
     static int idAccount_Current;
 
-
     @Override
     public void start(final Stage stage) throws IOException {
         Parent home = FXMLLoader.load(getClass().getResource("/Login.fxml"));
@@ -44,12 +47,9 @@ public class LoginController extends Application {
 
         stage.setScene(homeScene);
         stage.show();
-
-
     }
 
-    @FXML
-    private void handleButtonAction(ActionEvent event) throws IOException {
+    @FXML private void handleButtonAction(ActionEvent event) throws IOException {
 
         if (event.getSource() == useToken) {
             Stage stage = (Stage) useToken.getScene().getWindow();
